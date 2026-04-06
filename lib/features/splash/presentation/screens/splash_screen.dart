@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:matthewmoec_app/core/constants/app_color.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/features/splash/presentation/providers/splash_provider.dart';
 
@@ -17,8 +18,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _progressAnimation;
-
-  static const Color navyBlue = Color(0xFF1A2B6B);
 
   @override
   void initState() {
@@ -96,7 +95,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                       value: progress, // Driven by Riverpod state
                       minHeight: 5,
                       backgroundColor: const Color(0xFFDDDDDD),
-                      valueColor: const AlwaysStoppedAnimation<Color>(navyBlue),
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        AppColor.navyBlue,
+                      ),
                     );
                   },
                 ),
