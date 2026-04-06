@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/routes/app_route_paths.dart';
+import 'package:matthewmoec_app/features/bottom_nav/presentation/screens/bottom_nav_screen.dart';
+import 'package:matthewmoec_app/features/splash/presentation/screens/splash_screen.dart';
 
 class AppRoutes {
   static final router = GoRouter(
@@ -10,12 +12,12 @@ class AppRoutes {
       GoRoute(
         path: AppRoutePaths.splash,
         name: AppRouteNames.splash,
-        builder: (context, state) => const Placeholder(),
+        builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
         path: AppRoutePaths.bottomNav,
         name: AppRouteNames.bottomNav,
-        builder: (context, state) => const Placeholder(),
+        builder: (context, state) => const BottomNavScreen(),
         routes: [
           GoRoute(
             path: AppRoutePaths.home,

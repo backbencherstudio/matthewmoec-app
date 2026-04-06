@@ -1,7 +1,22 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:matthewmoec_app/core/routes/app_routes.dart';
 
-void main() {
-  runApp(const MainApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('es')],
+      path: 'assets/localization',
+      fallbackLocale: const Locale('en'),
+      useFallbackTranslations: true,
+      child: ProviderScope(child: MainApp()),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -9,11 +24,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      child: MaterialApp.router(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        title: "CartForGood",
+        routerConfig: AppRoutes.router,
+        debugShowCheckedModeBanner: false,
       ),
     );
   }
