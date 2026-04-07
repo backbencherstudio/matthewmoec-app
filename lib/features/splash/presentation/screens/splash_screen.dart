@@ -78,7 +78,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
               ),
               8.verticalSpace,
               Text(
-                l10n.slogan,
+                l10n.tagline,
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,

@@ -9,88 +9,123 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get language => 'Spanish';
+  String get appName => 'CartForGood';
 
   @override
-  String get slogan => 'Compra Inteligente. Ahorra Más. Da al Prójimo.';
+  String get tagline => 'Compre inteligentemente. Ahorre más. Contribuya.';
 
   @override
-  String get home => 'Inicio';
+  String get backToStores => 'Volver a tiendas';
 
   @override
-  String get charity => 'Caridad';
+  String get backToCharity => 'Volver a caridad';
 
   @override
-  String get share => 'Compartir';
+  String get helpOthers => 'Ayude a otros a comprar y contribuir';
+
+  @override
+  String get everyPurchase => 'Cada compra marca la diferencia';
 
   @override
   String get tapAStoreSupportsCharity => 'Toca una Tienda. Apoya la Caridad';
 
   @override
-  String get shopAtTheseStores => 'Compra en estas Tiendas';
+  String get helpOthersShopAndGiveBack =>
+      'Ayude a otros a comprar y contribuir';
 
   @override
-  String get howItWorks => 'Cómo funciona';
+  String get navHome => 'Inicio';
 
   @override
-  String get helpOthersShopGiveBack => 'Ayuda a otros a comprar y dar';
+  String get navCharity => 'Caridad';
+
+  @override
+  String get navShare => 'Compartir';
+
+  @override
+  String get howItWorksTitle => 'Cómo funciona';
 
   @override
   String get howItWorksDescription =>
-      'Las tiendas nos pagan una pequeña comisión cuando compras a través de nuestros enlaces. Tú no pagas nada extra. Compartimos lo que nos dan con organizaciones benéficas cada mes.';
+      'Las tiendas nos pagan una pequeña comisión cuando compras a través de nuestros enlaces. No pagas nada extra. Compartimos lo que nos dan con instituciones benéficas cada mes.';
 
   @override
-  String get backToStores => 'Volver a las tiendas';
+  String get storeSelectionTitle => 'Compre en estas tiendas';
+
+  @override
+  String get amazonSubtext =>
+      'Pida en línea. Recoja en tienda. La comisión sigue contando.';
+
+  @override
+  String get electronicsAndMore => 'Electrónica y más';
+
+  @override
+  String get homeAndFashion => 'Hogar y moda';
 
   @override
   String get opensInDeviceBrowser => 'Se abre en el navegador del dispositivo';
 
   @override
-  String get howItWorksDescription2 =>
-      'Toca abajo — Amazon se abre con enlace de afiliado. Tu compra apoya la caridad sin costo adicional para ti.';
-
-  @override
-  String get storeLinks => 'Enlaces de tiendas';
+  String get opensInExternalBrowser =>
+      'Se abre en navegador externo - NO WebView';
 
   @override
   String get storeLinkActive => 'Enlace de tienda activo';
 
   @override
-  String get asAnAmazonAssociateIEarnFromQualifyingPurchases =>
-      'Como asociado de Amazon, gano de las compras que califican.';
+  String get amazonAssociateDisclaimer =>
+      'Como asociado de Amazon, percibo ingresos por compras elegibles.';
 
   @override
-  String get thisMonthsCharity => 'La caridad de este mes';
+  String get tapBelowAmazon =>
+      'Toque abajo — Amazon se abre mediante un enlace de afiliado. Su compra apoya a la caridad sin costo adicional para usted.';
 
   @override
-  String get opensInExternalBrowserNotWebView =>
-      'Se abre en navegador externo - NO en WebView';
+  String openStoreButton(String storeName) {
+    return 'Abrir $storeName';
+  }
+
+  @override
+  String get lastMonthDonationTitle => 'El mes pasado CartForGood donó';
 
   @override
   String get lastMonthConfirmedDonation => 'Donación confirmada del mes pasado';
 
   @override
-  String get everyPurchaseMakesADifference => 'Cada compra marca la diferencia';
+  String lastMonthDonationHome(String amount, String amount2) {
+    return 'El mes pasado CartForGood donó \$$amount a Feeding America y \$$amount2 a Springfield Food Pantry.';
+  }
 
   @override
-  String get shareMessage => 'Mensaje para compartir';
+  String donationSummary(String amount, String amount2) {
+    return '$amount a Feeding America y $amount2 a Springfield Food Pantry.';
+  }
 
   @override
-  String get shareMessageDescription =>
-      'Uso CartForGood para comprar en Amazon, Walmart y más. Una parte va a la caridad automáticamente. Noviembre es Feeding America. Diciembre es Toys for Tots. Descarga gratuita. CartForGood.com';
+  String get thisMonthsCharity => 'Caridad de este mes';
 
   @override
-  String get message => 'Mensaje';
-
-  @override
-  String get email => 'Correo electrónico';
-
-  @override
-  String get whatsApp => 'WhatsApp';
-
-  @override
-  String get copyLink => 'Copiar enlace';
+  String get shareAction => 'Compartir';
 
   @override
   String get shareNow => 'Compartir ahora';
+
+  @override
+  String get shareMessageTitle => 'Mensaje para compartir';
+
+  @override
+  String get defaultShareMessage =>
+      'Uso CartForGood para comprar en Amazon, Walmart y más. Una parte va a la caridad automáticamente. Noviembre es Feeding America. Diciembre es Toys for Tots. Descarga gratuita. CartForGood.com';
+
+  @override
+  String get methodMessage => 'Mensaje';
+
+  @override
+  String get methodEmail => 'Correo';
+
+  @override
+  String get methodWhatsApp => 'WhatsApp';
+
+  @override
+  String get methodCopyLink => 'Copiar enlace';
 }

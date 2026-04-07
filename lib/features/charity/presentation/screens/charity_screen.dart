@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
-import 'package:matthewmoec_app/features/bottom_nav/presentation/providers/bottom_nav_provider.dart';
+import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
 class CharityScreen extends StatelessWidget {
   const CharityScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -16,10 +19,10 @@ class CharityScreen extends StatelessWidget {
             Consumer(
               builder: (context, ref, child) => AppHeader(
                 bottomPadding: 40.h,
-                subtitle: "everyPurchaseMakesADifference",
-                backButtonText: "backToStores",
+                subtitle: l10n.everyPurchase,
+                backButtonText: l10n.backToStores,
                 onBackButtonPressed: () {
-                  ref.read(bottomNavProvider.notifier).state = 0;
+                  context.goNamed(AppRouteNames.home);
                 },
               ),
             ),
@@ -49,13 +52,14 @@ class CharityScreen extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          const Text(
-                            'Last month confirmed donation',
+                          Text(
+                            l10n.lastMonthConfirmedDonation,
                             style: TextStyle(
                               fontSize: 18,
                               color: Color(0xFF4A68B1),
                               fontWeight: FontWeight.w400,
                             ),
+                            textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 16),
                           const Text(

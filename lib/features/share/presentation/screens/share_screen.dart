@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
-import 'package:matthewmoec_app/features/bottom_nav/presentation/providers/bottom_nav_provider.dart';
+import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
 class ShareScreen extends StatelessWidget {
   const ShareScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SingleChildScrollView(
@@ -18,10 +21,10 @@ class ShareScreen extends StatelessWidget {
               builder: (context, ref, child) {
                 return AppHeader(
                   bottomPadding: 40.h,
-                  subtitle: 'helpOthersShop&GiveBack',
-                  backButtonText: 'backToCharity',
+                  subtitle: l10n.helpOthersShopAndGiveBack,
+                  backButtonText: l10n.backToCharity,
                   onBackButtonPressed: () {
-                    ref.read(bottomNavProvider.notifier).state = 1;
+                    context.goNamed(AppRouteNames.charity);
                   },
                 );
               },
@@ -50,9 +53,9 @@ class ShareScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            "Share Message",
-                            style: TextStyle(
+                          Text(
+                            l10n.shareMessageTitle,
+                            style: const TextStyle(
                               color: Colors.indigo,
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -60,7 +63,7 @@ class ShareScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 12),
                           Text(
-                            "I use CartForGood to shop at Amazon, Walmart and more. A portion goes to charity automatically. November is Feeding America. December is Toys for Tots. Free to download.",
+                            l10n.defaultShareMessage,
                             style: TextStyle(
                               color: Colors.grey[700],
                               fontSize: 15,
@@ -82,13 +85,13 @@ class ShareScreen extends StatelessWidget {
                       children: [
                         _ShareOption(
                           icon: Icons.chat_bubble_outline,
-                          label: "Message",
+                          label: l10n.methodMessage,
                           onTap: () {},
                         ),
                         const SizedBox(width: 12),
                         _ShareOption(
                           icon: Icons.email_outlined,
-                          label: "Email",
+                          label: l10n.methodEmail,
                           onTap: () {},
                         ),
                       ],
@@ -98,13 +101,13 @@ class ShareScreen extends StatelessWidget {
                       children: [
                         _ShareOption(
                           icon: Icons.message,
-                          label: "WhatsApp",
+                          label: l10n.methodWhatsApp,
                           onTap: () {},
                         ),
                         const SizedBox(width: 12),
                         _ShareOption(
                           icon: Icons.link,
-                          label: "Copy Link",
+                          label: l10n.methodCopyLink,
                           onTap: () {},
                         ),
                       ],
@@ -123,11 +126,11 @@ class ShareScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {},
-                        child: const Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Share Now",
+                              l10n.shareNow,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

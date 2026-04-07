@@ -87,50 +87,53 @@ class AppHeader extends ConsumerWidget {
                 if (mode == AppHeaderMode.appLogo)
                   Image.asset("assets/logos/side_logo.png", height: 28.h)
                 else
-                  Row(
-                    spacing: 12.w,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Store logo — supports asset paths and network URLs
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12.r),
-                        child: storeLogoPath!.startsWith('http')
-                            ? Image.network(
-                                storeLogoPath!,
-                                width: 40.w,
-                                height: 40.w,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.asset(
-                                storeLogoPath!,
-                                width: 40.w,
-                                height: 40.w,
-                                fit: BoxFit.cover,
+                  Expanded(
+                    child: Row(
+                      spacing: 12.w,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Store logo — supports asset paths and network URLs
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12.r),
+                          child: storeLogoPath!.startsWith('http')
+                              ? Image.network(
+                                  storeLogoPath!,
+                                  width: 40.w,
+                                  height: 40.w,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.asset(
+                                  storeLogoPath!,
+                                  width: 40.w,
+                                  height: 40.w,
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                        // Store name
+                        Flexible(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                storeName!,
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColor.white,
+                                ),
                               ),
-                      ),
-                      // Store name
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            storeName!,
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w700,
-                              color: AppColor.white,
-                            ),
+                              Text(
+                                subtitle,
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  color: AppColor.grey,
+                                ),
+                              ),
+                            ],
                           ),
-                          // 2.verticalSpace,
-                          Text(
-                            subtitle,
-                            style: TextStyle(
-                              fontSize: 16.sp,
-                              color: AppColor.grey,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                 if (showLocaleToggle)
                   // Right side: EN / ES toggle (always shown)
@@ -177,7 +180,7 @@ class _LocaleToggle extends StatelessWidget {
               ? const Locale('es')
               : const Locale('en');
 
-          ref.read(localeProvider.notifier).state = newLocale;
+          ref.read(localeProvider.notifier).updateLocale(newLocale);
         },
         child: Row(
           mainAxisSize: MainAxisSize.min,

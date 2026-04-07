@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
+import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
 class HowItWorksScreen extends StatelessWidget {
   const HowItWorksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: Column(
         children: [
           AppHeader(
-            backButtonText: 'backToStores',
+            backButtonText: l10n.backToStores,
             onBackButtonPressed: () => context.pop(),
-            subtitle: 'helpOthersShop&GiveBack',
+            subtitle: l10n.helpOthersShopAndGiveBack,
           ),
           Container(
             width: 350, // Adjust width as needed
@@ -34,8 +36,8 @@ class HowItWorksScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'How It works',
+                Text(
+                  l10n.howItWorksTitle,
                   style: TextStyle(
                     color: Color(0xFF5C79C7), // Muted blue color
                     fontSize: 16,
@@ -43,8 +45,8 @@ class HowItWorksScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'The stores pay us a small commission when you shop through our links. You pay nothing extra. We share what they give us with charity every month.',
+                Text(
+                  l10n.howItWorksDescription,
                   style: TextStyle(
                     color: Color(0xFF2D4373), // Dark navy text color
                     fontSize: 18,

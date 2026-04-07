@@ -98,65 +98,17 @@ abstract class AppLocalizations {
     Locale('es'),
   ];
 
-  /// Selected language
+  /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'English'**
-  String get language;
+  /// **'CartForGood'**
+  String get appName;
 
-  /// No description provided for @slogan.
+  /// No description provided for @tagline.
   ///
   /// In en, this message translates to:
   /// **'Shop Smart. Save More. Give Back.'**
-  String get slogan;
-
-  /// No description provided for @home.
-  ///
-  /// In en, this message translates to:
-  /// **'Home'**
-  String get home;
-
-  /// No description provided for @charity.
-  ///
-  /// In en, this message translates to:
-  /// **'Charity'**
-  String get charity;
-
-  /// No description provided for @share.
-  ///
-  /// In en, this message translates to:
-  /// **'Share'**
-  String get share;
-
-  /// No description provided for @tapAStoreSupportsCharity.
-  ///
-  /// In en, this message translates to:
-  /// **'Tap a Store. Supports Charity'**
-  String get tapAStoreSupportsCharity;
-
-  /// No description provided for @shopAtTheseStores.
-  ///
-  /// In en, this message translates to:
-  /// **'Shop at these Stores'**
-  String get shopAtTheseStores;
-
-  /// No description provided for @howItWorks.
-  ///
-  /// In en, this message translates to:
-  /// **'How it works'**
-  String get howItWorks;
-
-  /// No description provided for @helpOthersShopGiveBack.
-  ///
-  /// In en, this message translates to:
-  /// **'Help Others shop & give back'**
-  String get helpOthersShopGiveBack;
-
-  /// No description provided for @howItWorksDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'The stores pay us a small commission when you shop through our links. You pay nothing extra. We share what they give us with charity every month.'**
-  String get howItWorksDescription;
+  String get tagline;
 
   /// No description provided for @backToStores.
   ///
@@ -164,23 +116,101 @@ abstract class AppLocalizations {
   /// **'Back to stores'**
   String get backToStores;
 
+  /// No description provided for @backToCharity.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to charity'**
+  String get backToCharity;
+
+  /// No description provided for @helpOthers.
+  ///
+  /// In en, this message translates to:
+  /// **'Help Others shop & give back'**
+  String get helpOthers;
+
+  /// No description provided for @everyPurchase.
+  ///
+  /// In en, this message translates to:
+  /// **'Every purchase makes a difference'**
+  String get everyPurchase;
+
+  /// No description provided for @tapAStoreSupportsCharity.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap a Store. Supports Charity'**
+  String get tapAStoreSupportsCharity;
+
+  /// No description provided for @helpOthersShopAndGiveBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Help Others shop & give back'**
+  String get helpOthersShopAndGiveBack;
+
+  /// No description provided for @navHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get navHome;
+
+  /// No description provided for @navCharity.
+  ///
+  /// In en, this message translates to:
+  /// **'Charity'**
+  String get navCharity;
+
+  /// No description provided for @navShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get navShare;
+
+  /// No description provided for @howItWorksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How It works'**
+  String get howItWorksTitle;
+
+  /// No description provided for @howItWorksDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The stores pay us a small commission when you shop through our links. You pay nothing extra. We share what they give us with charity every month.'**
+  String get howItWorksDescription;
+
+  /// No description provided for @storeSelectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop at these Stores'**
+  String get storeSelectionTitle;
+
+  /// No description provided for @amazonSubtext.
+  ///
+  /// In en, this message translates to:
+  /// **'Order online. Pick up in store. Commission still counts.'**
+  String get amazonSubtext;
+
+  /// No description provided for @electronicsAndMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Electronics & more'**
+  String get electronicsAndMore;
+
+  /// No description provided for @homeAndFashion.
+  ///
+  /// In en, this message translates to:
+  /// **'Home & Fashion'**
+  String get homeAndFashion;
+
   /// No description provided for @opensInDeviceBrowser.
   ///
   /// In en, this message translates to:
   /// **'Opens in device browser'**
   String get opensInDeviceBrowser;
 
-  /// No description provided for @howItWorksDescription2.
+  /// No description provided for @opensInExternalBrowser.
   ///
   /// In en, this message translates to:
-  /// **'Tap below — Amazon opens via affiliate link. Your purchase supports charity at no extra cost to you.'**
-  String get howItWorksDescription2;
-
-  /// No description provided for @storeLinks.
-  ///
-  /// In en, this message translates to:
-  /// **'Store links'**
-  String get storeLinks;
+  /// **'Opens in external browser - NOT WebView'**
+  String get opensInExternalBrowser;
 
   /// No description provided for @storeLinkActive.
   ///
@@ -188,23 +218,29 @@ abstract class AppLocalizations {
   /// **'Store Link Active'**
   String get storeLinkActive;
 
-  /// No description provided for @asAnAmazonAssociateIEarnFromQualifyingPurchases.
+  /// No description provided for @amazonAssociateDisclaimer.
   ///
   /// In en, this message translates to:
   /// **'As an Amazon Associate I earn from qualifying purchases.'**
-  String get asAnAmazonAssociateIEarnFromQualifyingPurchases;
+  String get amazonAssociateDisclaimer;
 
-  /// No description provided for @thisMonthsCharity.
+  /// No description provided for @tapBelowAmazon.
   ///
   /// In en, this message translates to:
-  /// **'This month\'s charity'**
-  String get thisMonthsCharity;
+  /// **'Tap below — Amazon opens via affiliate link. Your purchase supports charity at no extra cost to you.'**
+  String get tapBelowAmazon;
 
-  /// No description provided for @opensInExternalBrowserNotWebView.
+  /// No description provided for @openStoreButton.
   ///
   /// In en, this message translates to:
-  /// **'Opens in external browser - NOT WebView'**
-  String get opensInExternalBrowserNotWebView;
+  /// **'Open {storeName}'**
+  String openStoreButton(String storeName);
+
+  /// No description provided for @lastMonthDonationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Last month CartForGood donated'**
+  String get lastMonthDonationTitle;
 
   /// No description provided for @lastMonthConfirmedDonation.
   ///
@@ -212,53 +248,71 @@ abstract class AppLocalizations {
   /// **'Last month confirmed donation'**
   String get lastMonthConfirmedDonation;
 
-  /// No description provided for @everyPurchaseMakesADifference.
+  /// No description provided for @lastMonthDonationHome.
   ///
   /// In en, this message translates to:
-  /// **'Every purchase makes a difference'**
-  String get everyPurchaseMakesADifference;
+  /// **'Last month CartForGood donated \${amount} to Feeding America and \${amount2} to Springfield Food Pantry.'**
+  String lastMonthDonationHome(String amount, String amount2);
 
-  /// No description provided for @shareMessage.
+  /// No description provided for @donationSummary.
   ///
   /// In en, this message translates to:
-  /// **'Share Message'**
-  String get shareMessage;
+  /// **'\${amount} to Feeding America and \${amount2} to Springfield Food Pantry.'**
+  String donationSummary(String amount, String amount2);
 
-  /// No description provided for @shareMessageDescription.
+  /// No description provided for @thisMonthsCharity.
   ///
   /// In en, this message translates to:
-  /// **'I use CartForGood to shop at Amazon, Walmart and more. A portion goes to charity automatically. November is Feeding America. December is Toys for Tots. Free to download. CartForGood.com'**
-  String get shareMessageDescription;
+  /// **'This month\'s charity'**
+  String get thisMonthsCharity;
 
-  /// No description provided for @message.
+  /// No description provided for @shareAction.
   ///
   /// In en, this message translates to:
-  /// **'Message'**
-  String get message;
-
-  /// No description provided for @email.
-  ///
-  /// In en, this message translates to:
-  /// **'Email'**
-  String get email;
-
-  /// No description provided for @whatsApp.
-  ///
-  /// In en, this message translates to:
-  /// **'WhatsApp'**
-  String get whatsApp;
-
-  /// No description provided for @copyLink.
-  ///
-  /// In en, this message translates to:
-  /// **'Copy Link'**
-  String get copyLink;
+  /// **'Share'**
+  String get shareAction;
 
   /// No description provided for @shareNow.
   ///
   /// In en, this message translates to:
   /// **'Share Now'**
   String get shareNow;
+
+  /// No description provided for @shareMessageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Message'**
+  String get shareMessageTitle;
+
+  /// No description provided for @defaultShareMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'I use CartForGood to shop at Amazon, Walmart and more. A portion goes to charity automatically. November is Feeding America. December is Toys for Tots. Free to download. CartForGood.com'**
+  String get defaultShareMessage;
+
+  /// No description provided for @methodMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get methodMessage;
+
+  /// No description provided for @methodEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get methodEmail;
+
+  /// No description provided for @methodWhatsApp.
+  ///
+  /// In en, this message translates to:
+  /// **'WhatsApp'**
+  String get methodWhatsApp;
+
+  /// No description provided for @methodCopyLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Link'**
+  String get methodCopyLink;
 }
 
 class _AppLocalizationsDelegate

@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
+import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
 class ExternalBrowserScreen extends StatelessWidget {
   const ExternalBrowserScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: Column(
         children: [
           AppHeader(
             showLocaleToggle: false,
-            backButtonText: 'Back to stores',
+            backButtonText: l10n.backToStores,
             onBackButtonPressed: () => context.goNamed(AppRouteNames.home),
             mode: AppHeaderMode.storeLogo,
             storeLogoPath: 'assets/images/amazon.png',
@@ -37,8 +39,8 @@ class ExternalBrowserScreen extends StatelessWidget {
                       color: const Color(0xFFEDF2F9), // Light bluish background
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Text(
-                      'Store Link Active',
+                    child: Text(
+                      l10n.storeLinkActive,
                       style: TextStyle(
                         color: Color(0xFF3B5B91),
                         fontWeight: FontWeight.w500,
@@ -59,8 +61,8 @@ class ExternalBrowserScreen extends StatelessWidget {
                   const SizedBox(height: 8),
 
                   // Description Text
-                  const Text(
-                    'As an Amazon Associate I earn from qualifying purchases.',
+                  Text(
+                    l10n.amazonAssociateDisclaimer,
                     style: TextStyle(
                       fontSize: 16,
                       color: Color(0xFF2C3E50),
@@ -90,8 +92,8 @@ class ExternalBrowserScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        const Text(
-                          'Last month confirmed donation',
+                        Text(
+                          l10n.lastMonthConfirmedDonation,
                           style: TextStyle(
                             fontSize: 18,
                             color: Color(0xFF4A68B1),
