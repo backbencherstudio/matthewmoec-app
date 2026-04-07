@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/constants/app_color.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/features/splash/presentation/providers/splash_provider.dart';
+import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -49,7 +49,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   }
 
   void _navigateToNextScreen() {
-    context.goNamed(AppRouteNames.bottomNav);
+    context.goNamed(AppRouteNames.home);
   }
 
   @override
@@ -60,6 +60,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -77,7 +78,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
               ),
               8.verticalSpace,
               Text(
-                'slogan'.tr(),
+                l10n.slogan,
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,

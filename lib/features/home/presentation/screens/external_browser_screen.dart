@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
@@ -13,12 +12,13 @@ class ExternalBrowserScreen extends StatelessWidget {
       body: Column(
         children: [
           AppHeader(
-            subtitle: '',
-            backButtonText: 'backToStores'.tr(),
-            bottomPadding: 0,
-            onBackButtonPressed: () {
-              context.goNamed(AppRouteNames.bottomNav);
-            },
+            showLocaleToggle: false,
+            backButtonText: 'Back to stores',
+            onBackButtonPressed: () => context.goNamed(AppRouteNames.home),
+            mode: AppHeaderMode.storeLogo,
+            storeLogoPath: 'assets/images/amazon.png',
+            storeName: 'Amazon',
+            subtitle: 'amazon.com/?tag-affliate_id',
           ),
           Center(
             child: Padding(

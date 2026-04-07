@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:matthewmoec_app/features/bottom_nav/presentation/providers/bottom_nav_provider.dart';
-import 'package:matthewmoec_app/features/charity/presentation/screens/charity_screen.dart';
-import 'package:matthewmoec_app/features/home/presentation/screens/home_screen.dart';
-import 'package:matthewmoec_app/features/share/presentation/screens/share_screen.dart';
+import 'package:go_router/go_router.dart';
 
-class BottomNavScreen extends ConsumerWidget {
-  const BottomNavScreen({super.key});
+class BottomNavScreen extends StatelessWidget {
+  final StatefulNavigationShell navigationShell;
 
-  static const List<Widget> _screens = [
-    HomeScreen(),
-    CharityScreen(),
-    ShareScreen(),
-  ];
+  const BottomNavScreen({super.key, required this.navigationShell});
 
   static final List<BottomNavigationBarItem> _destinations = [
     BottomNavigationBarItem(
@@ -33,17 +25,16 @@ class BottomNavScreen extends ConsumerWidget {
   ];
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final currentIndex = ref.watch(bottomNavProvider);
-
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: currentIndex, children: _screens),
+      body: navigationShell,
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
-        currentIndex: currentIndex,
-        onTap: (index) {
-          ref.read(bottomNavProvider.notifier).state = index;
-        },
+        currentIndex: navigationShell.currentIndex,
+        onTap: (index) => navigationShell.goBranch(
+          index,
+          initialLocation: index == navigationShell.currentIndex,
+        ),
         items: _destinations,
       ),
     );

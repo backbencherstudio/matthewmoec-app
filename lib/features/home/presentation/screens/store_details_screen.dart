@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
@@ -15,12 +14,12 @@ class StoreDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             AppHeader(
-              subtitle: 'amazon.com/?tag-affliate_id',
-              bottomPadding: 0,
-              backButtonText: 'backToStores'.tr(),
-              onBackButtonPressed: () {
-                context.goNamed(AppRouteNames.bottomNav);
-              },
+              backButtonText: 'Back to stores',
+              onBackButtonPressed: () => context.pop(),
+              mode: AppHeaderMode.storeLogo,
+              storeLogoPath: 'assets/images/amazon.png',
+              storeName: 'Amazon',
+              subtitle: 'Opens in device browser',
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),

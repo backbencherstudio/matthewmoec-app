@@ -1,21 +1,22 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
+import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            AppHeader(subtitle: 'tapAStoreSupportsCharity'.tr()),
+            AppHeader(subtitle: l10n.tapAStoreSupportsCharity),
             Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
@@ -32,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       TextButton.icon(
                         onPressed: () {
-                          context.goNamed(AppRouteNames.howItWorks);
+                          context.pushNamed(AppRouteNames.howItWorks);
                         },
                         icon: const Icon(Icons.info_outline, size: 18),
                         label: const Text("How it works"),
@@ -155,7 +156,7 @@ class StoreTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.goNamed(AppRouteNames.storeDetails);
+        context.pushNamed(AppRouteNames.storeDetails);
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),

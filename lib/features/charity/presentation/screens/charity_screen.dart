@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,8 +16,8 @@ class CharityScreen extends StatelessWidget {
             Consumer(
               builder: (context, ref, child) => AppHeader(
                 bottomPadding: 40.h,
-                subtitle: "everyPurchaseMakesADifference".tr(),
-                backButtonText: "backToStores".tr(),
+                subtitle: "everyPurchaseMakesADifference",
+                backButtonText: "backToStores",
                 onBackButtonPressed: () {
                   ref.read(bottomNavProvider.notifier).state = 0;
                 },

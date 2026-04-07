@@ -14,47 +14,66 @@ class AppRoutes {
   static final router = GoRouter(
     initialLocation: AppRoutePaths.splash,
     routes: [
+      // ── Splash (outside shell) ──
       GoRoute(
         path: AppRoutePaths.splash,
         name: AppRouteNames.splash,
         builder: (context, state) => const SplashScreen(),
       ),
-      GoRoute(
-        path: AppRoutePaths.bottomNav,
-        name: AppRouteNames.bottomNav,
-        builder: (context, state) => const BottomNavScreen(),
-        routes: [
-          GoRoute(
-            path: AppRoutePaths.home,
-            name: AppRouteNames.home,
-            builder: (context, state) => const HomeScreen(),
+
+      // ── Shell: persistent bottom nav ──
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) =>
+            BottomNavScreen(navigationShell: navigationShell),
+        branches: [
+          // ── Home Branch ──
+          StatefulShellBranch(
             routes: [
               GoRoute(
-                path: AppRoutePaths.howItWorks,
-                name: AppRouteNames.howItWorks,
-                builder: (context, state) => const HowItWorksScreen(),
-              ),
-              GoRoute(
-                path: AppRoutePaths.storeDetails,
-                name: AppRouteNames.storeDetails,
-                builder: (context, state) => const StoreDetailsScreen(),
-              ),
-              GoRoute(
-                path: AppRoutePaths.externalBrowser,
-                name: AppRouteNames.externalBrowser,
-                builder: (context, state) => const ExternalBrowserScreen(),
+                path: AppRoutePaths.home,
+                name: AppRouteNames.home,
+                builder: (context, state) => const HomeScreen(),
+                routes: [
+                  GoRoute(
+                    path: AppRoutePaths.howItWorks,
+                    name: AppRouteNames.howItWorks,
+                    builder: (context, state) => const HowItWorksScreen(),
+                  ),
+                  GoRoute(
+                    path: AppRoutePaths.storeDetails,
+                    name: AppRouteNames.storeDetails,
+                    builder: (context, state) => const StoreDetailsScreen(),
+                  ),
+                  GoRoute(
+                    path: AppRoutePaths.externalBrowser,
+                    name: AppRouteNames.externalBrowser,
+                    builder: (context, state) => const ExternalBrowserScreen(),
+                  ),
+                ],
               ),
             ],
           ),
-          GoRoute(
-            path: AppRoutePaths.charity,
-            name: AppRouteNames.charity,
-            builder: (context, state) => const CharityScreen(),
+
+          // ── Charity Branch ──
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutePaths.charity,
+                name: AppRouteNames.charity,
+                builder: (context, state) => const CharityScreen(),
+              ),
+            ],
           ),
-          GoRoute(
-            path: AppRoutePaths.share,
-            name: AppRouteNames.share,
-            builder: (context, state) => const ShareScreen(),
+
+          // ── Share Branch ──
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: AppRoutePaths.share,
+                name: AppRouteNames.share,
+                builder: (context, state) => const ShareScreen(),
+              ),
+            ],
           ),
         ],
       ),

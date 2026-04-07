@@ -1,8 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
 
 class HowItWorksScreen extends StatelessWidget {
@@ -14,12 +11,9 @@ class HowItWorksScreen extends StatelessWidget {
       body: Column(
         children: [
           AppHeader(
-            subtitle: 'helpOthersShop&GiveBack'.tr(),
-            backButtonText: 'backToStores'.tr(),
-            bottomPadding: 0,
-            onBackButtonPressed: () {
-              context.goNamed(AppRouteNames.bottomNav);
-            },
+            backButtonText: 'backToStores',
+            onBackButtonPressed: () => context.pop(),
+            subtitle: 'helpOthersShop&GiveBack',
           ),
           Container(
             width: 350, // Adjust width as needed
