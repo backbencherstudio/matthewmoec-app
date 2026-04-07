@@ -1,0 +1,65 @@
+{
+  "@@locale": "en",
+  "appName": "CartForGood",
+  "tagline": "Shop Smart. Save More. Give Back.",
+  "backToStores": "Back to stores",
+  "backToCharity": "Back to charity",
+  "helpOthers": "Help Others shop & give back",
+  "everyPurchase": "Every purchase makes a difference",
+  "tapAStoreSupportsCharity": "Tap a Store. Supports Charity",
+  "helpOthersShopAndGiveBack": "Help Others shop & give back",
+  
+  "navHome": "Home",
+  "navCharity": "Charity",
+  "navShare": "Share",
+
+  "howItWorksTitle": "How It works",
+  "howItWorksDescription": "The stores pay us a small commission when you shop through our links. You pay nothing extra. We share what they give us with charity every month.",
+  
+  "storeSelectionTitle": "Shop at these Stores",
+  "amazonSubtext": "Order online. Pick up in store. Commission still counts.",
+  "electronicsAndMore": "Electronics & more",
+  "homeAndFashion": "Home & Fashion",
+  "opensInDeviceBrowser": "Opens in device browser",
+  "opensInExternalBrowser": "Opens in external browser - NOT WebView",
+  
+  "storeLinkActive": "Store Link Active",
+  "amazonAssociateDisclaimer": "As an Amazon Associate I earn from qualifying purchases.",
+  "tapBelowAmazon": "Tap below — Amazon opens via affiliate link. Your purchase supports charity at no extra cost to you.",
+  "openStoreButton": "Open {storeName}",
+  "@openStoreButton": {
+    "placeholders": {
+      "storeName": {
+        "type": "String"
+      }
+    }
+  },
+
+  "lastMonthDonationTitle": "Last month CartForGood donated",
+  "lastMonthConfirmedDonation": "Last month confirmed donation",
+  "lastMonthDonationHome": "Last month CartForGood donated ${amount} to Feeding America and ${amount2} to Springfield Food Pantry.",
+  "@lastMonthDonationHome": {
+    "placeholders": {
+      "amount": { "type": "String" },
+      "amount2": { "type": "String" }
+    }
+  },
+  "donationSummary": "${amount} to Feeding America and ${amount2} to Springfield Food Pantry.",
+  "@donationSummary": {
+    "placeholders": {
+      "amount": { "type": "String" },
+      "amount2": { "type": "String" }
+    }
+  },
+  
+  "thisMonthsCharity": "This month's charity",
+  "shareAction": "Share",
+  "shareNow": "Share Now",
+  "shareMessageTitle": "Share Message",
+  "defaultShareMessage": "I use CartForGood to shop at Amazon, Walmart and more. A portion goes to charity automatically. November is Feeding America. December is Toys for Tots. Free to download. CartForGood.com",
+  
+  "methodMessage": "Message",
+  "methodEmail": "Email",
+  "methodWhatsApp": "WhatsApp",
+  "methodCopyLink": "Copy Link"
+}

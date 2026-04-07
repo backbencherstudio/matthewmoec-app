@@ -1,0 +1,65 @@
+{
+  "@@locale": "es",
+  "appName": "CartForGood",
+  "tagline": "Compre inteligentemente. Ahorre más. Contribuya.",
+  "backToStores": "Volver a tiendas",
+  "backToCharity": "Volver a caridad",
+  "helpOthers": "Ayude a otros a comprar y contribuir",
+  "everyPurchase": "Cada compra marca la diferencia",
+  "tapAStoreSupportsCharity": "Toca una Tienda. Apoya la Caridad",
+  "helpOthersShopAndGiveBack": "Ayude a otros a comprar y contribuir",
+  
+  "navHome": "Inicio",
+  "navCharity": "Caridad",
+  "navShare": "Compartir",
+
+  "howItWorksTitle": "Cómo funciona",
+  "howItWorksDescription": "Las tiendas nos pagan una pequeña comisión cuando compras a través de nuestros enlaces. No pagas nada extra. Compartimos lo que nos dan con instituciones benéficas cada mes.",
+  
+  "storeSelectionTitle": "Compre en estas tiendas",
+  "amazonSubtext": "Pida en línea. Recoja en tienda. La comisión sigue contando.",
+  "electronicsAndMore": "Electrónica y más",
+  "homeAndFashion": "Hogar y moda",
+  "opensInDeviceBrowser": "Se abre en el navegador del dispositivo",
+  "opensInExternalBrowser": "Se abre en navegador externo - NO WebView",
+  
+  "storeLinkActive": "Enlace de tienda activo",
+  "amazonAssociateDisclaimer": "Como asociado de Amazon, percibo ingresos por compras elegibles.",
+  "tapBelowAmazon": "Toque abajo — Amazon se abre mediante un enlace de afiliado. Su compra apoya a la caridad sin costo adicional para usted.",
+  "openStoreButton": "Abrir {storeName}",
+  "@openStoreButton": {
+    "placeholders": {
+      "storeName": {
+        "type": "String"
+      }
+    }
+  },
+
+  "lastMonthDonationTitle": "El mes pasado CartForGood donó",
+  "lastMonthConfirmedDonation": "Donación confirmada del mes pasado",
+  "lastMonthDonationHome": "El mes pasado CartForGood donó ${amount} a Feeding America y ${amount2} a Springfield Food Pantry.",
+  "@lastMonthDonationHome": {
+    "placeholders": {
+      "amount": { "type": "String" },
+      "amount2": { "type": "String" }
+    }
+  },
+  "donationSummary": "{amount} a Feeding America y {amount2} a Springfield Food Pantry.",
+  "@donationSummary": {
+    "placeholders": {
+      "amount": { "type": "String" },
+      "amount2": { "type": "String" }
+    }
+  },
+  
+  "thisMonthsCharity": "Caridad de este mes",
+  "shareAction": "Compartir",
+  "shareNow": "Compartir ahora",
+  "shareMessageTitle": "Mensaje para compartir",
+  "defaultShareMessage": "Uso CartForGood para comprar en Amazon, Walmart y más. Una parte va a la caridad automáticamente. Noviembre es Feeding America. Diciembre es Toys for Tots. Descarga gratuita. CartForGood.com",
+  
+  "methodMessage": "Mensaje",
+  "methodEmail": "Correo",
+  "methodWhatsApp": "WhatsApp",
+  "methodCopyLink": "Copiar enlace"
+}

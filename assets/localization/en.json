@@ -14,7 +14,7 @@
     "storeLinks": "Store links",
     "storeLinkActive": "Store Link Active",
     "asAnAmazonAssociateIEarnFromQualifyingPurchases": "As an Amazon Associate I earn from qualifying purchases.",
-    "thisMonthsCharity": "This month’s charity",
+    "thisMonthsCharity": "This month's charity",
     "opensInExternalBrowserNotWebView": "Opens in external browser - NOT WebView",
     "lastMonthConfirmedDonation": "Last month confirmed donation",
     "everyPurchaseMakesADifference": "Every purchase makes a difference",
@@ -24,6 +24,5 @@
     "email": "Email",
     "whatsApp": "WhatsApp",
     "copyLink": "Copy Link",
-    "shareNow": "Share Now",
-    "backToCharity": "Back to Charity"
+    "shareNow": "Share Now"
 }
