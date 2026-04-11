@@ -6,6 +6,7 @@ import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
 import 'package:matthewmoec_app/features/home/presentation/providers/home_provider.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StoreDetailsScreen extends ConsumerWidget {
   final String slug;
@@ -163,12 +164,18 @@ class StoreDetailsScreen extends ConsumerWidget {
                             ),
                           ),
                           child: ElevatedButton(
-                            onPressed: () {
-                              context.goNamed(
-                                AppRouteNames.externalBrowser,
-                                extra: store,
+                            onPressed: () async {
+                              final Uri url = Uri.parse(store.link!);
+                              await launchUrl(
+                                url,
+                                mode: LaunchMode.externalApplication,
                               );
-                              
+                              if (context.mounted) {
+                                context.goNamed(
+                                  AppRouteNames.externalBrowser,
+                                  extra: store,
+                                );
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.transparent,

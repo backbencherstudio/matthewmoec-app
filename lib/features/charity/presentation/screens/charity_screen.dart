@@ -89,39 +89,13 @@ class CharityScreen extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(height: 16),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                            "${DateFormat('MMMM').format(charity.date!)} ${charity.date?.year}",
-                                            style: TextStyle(
-                                              color: Color(0xFF4A68B1),
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 8,
-                                          ),
-                                          child: Icon(
-                                            Icons.circle,
-                                            size: 6,
-                                            color: Colors.blue[300],
-                                          ),
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                            charity.charityOrganizationName!,
-                                            style: TextStyle(
-                                              color: Color(0xFF4A68B1),
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                    Text(
+                                      "${DateFormat('MMMM').format(charity.date!)} ${charity.date?.year} | ${charity.charityOrganizationName}",
+                                      style: TextStyle(
+                                        color: Color(0xFF4A68B1),
+                                        fontSize: 16,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
                                   ],
                                 ),
