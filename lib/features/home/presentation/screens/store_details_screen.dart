@@ -1,169 +1,213 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
+import 'package:matthewmoec_app/features/home/presentation/providers/home_provider.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
-class StoreDetailsScreen extends StatelessWidget {
-  const StoreDetailsScreen({super.key});
+class StoreDetailsScreen extends ConsumerWidget {
+  final String slug;
+  const StoreDetailsScreen({super.key, required this.slug});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            AppHeader(
-              backButtonText: l10n.backToStores,
-              onBackButtonPressed: () => context.pop(),
-              mode: AppHeaderMode.storeLogo,
-              storeLogoPath: 'assets/images/amazon.png',
-              storeName: 'Amazon',
-              subtitle: l10n.opensInDeviceBrowser,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
+      body: ref
+          .watch(getStoreDetailsProvider(slug))
+          .when(
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (error, stackTrace) => Center(child: Text(error.toString())),
+            data: (store) => SingleChildScrollView(
               child: Column(
                 children: [
-                  _buildInfoCard(
-                    title: l10n.howItWorksTitle,
-                    content: RichText(
-                      text: TextSpan(
-                        style: TextStyle(
-                          color: Color(0xFF1A2E56),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          height: 1.4,
-                        ),
-                        children: [TextSpan(text: l10n.tapBelowAmazon)],
-                      ),
-                    ),
+                  AppHeader(
+                    backButtonText: l10n.backToStores,
+                    onBackButtonPressed: () => context.pop(),
+                    mode: AppHeaderMode.storeLogo,
+                    storeLogoPath: 'assets/images/amazon.png',
+                    storeName: store.name,
+                    subtitle: l10n.opensInDeviceBrowser,
                   ),
-                  const SizedBox(height: 16),
-
-                  // 2. Store Links Card
-                  _buildInfoCard(
-                    title: l10n.storeSelectionTitle,
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        _buildInfoCard(
+                          title: l10n.howItWorksTitle,
+                          content: RichText(
+                            text: TextSpan(
+                              style: TextStyle(
+                                color: Color(0xFF1A2E56),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                height: 1.4,
+                              ),
+                              children: [TextSpan(text: store.howItWorks)],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+
+                        // 2. Store Links Card
+                        _buildInfoCard(
+                          title: l10n.storeSelectionTitle,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  // TODO: Implement store link functionality
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                    horizontal: 16,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xFFE2E4EB),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    l10n.storeLinkActive,
+                                    style: TextStyle(
+                                      color: Color(0xFF1A2E56),
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              Text(
+                                l10n.amazonAssociateDisclaimer,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+
+                        // 3. Charity Card
+                        _buildInfoCard(
+                          title: l10n.thisMonthsCharity,
+                          child: ref
+                              .watch(getThisMonthCharitiesProvider)
+                              .when(
+                                data: (charities) => Column(
+                                  children: List.generate(
+                                    charities.length,
+                                    (index) => Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                charities[index]
+                                                    .charityOrganizationName!,
+                                                style: TextStyle(
+                                                  color: Color(0xFF1A2E56),
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 8.0,
+                                              ),
+                                              child: Icon(
+                                                Icons.circle,
+                                                size: 6,
+                                                color: Color(0xFF1A2E56),
+                                              ),
+                                            ),
+                                            Text(
+                                              "${DateFormat('MMMM').format(charities[index].date!)} ${charities[index].date?.year}",
+                                              style: TextStyle(
+                                                color: Color(0xFF1A2E56),
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        if (index < charities.length - 1)
+                                          Divider(),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                error: (error, stackTrace) => const SizedBox(),
+                                loading: () => const SizedBox(),
+                              ),
+                        ),
+                        const SizedBox(height: 16),
+
+                        // 4. Gradient Button
                         Container(
                           width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 12,
-                            horizontal: 16,
-                          ),
+                          height: 100,
                           decoration: BoxDecoration(
-                            color: const Color(0xFFE2E4EB),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            l10n.storeLinkActive,
-                            style: TextStyle(
-                              color: Color(0xFF1A2E56),
-                              fontSize: 16,
+                            borderRadius: BorderRadius.circular(16),
+                            gradient: const LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [Color(0xFF4A69BD), Color(0xFF1A2E56)],
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          l10n.amazonAssociateDisclaimer,
-                          style: TextStyle(color: Colors.grey, fontSize: 14),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  // 3. Charity Card
-                  _buildInfoCard(
-                    title: l10n.thisMonthsCharity,
-                    child: Row(
-                      children: const [
-                        Text(
-                          'Red Cross',
-                          style: TextStyle(
-                            color: Color(0xFF1A2E56),
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Icon(
-                            Icons.circle,
-                            size: 6,
-                            color: Color(0xFF1A2E56),
-                          ),
-                        ),
-                        Text(
-                          'January 2025',
-                          style: TextStyle(
-                            color: Color(0xFF1A2E56),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              context.goNamed(
+                                AppRouteNames.externalBrowser,
+                                extra: store,
+                              );
+                              
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  l10n.openStoreButton(store.name!),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  l10n.opensInExternalBrowser,
+                                  style: TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 14,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  // 4. Gradient Button
-                  Container(
-                    width: double.infinity,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      gradient: const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Color(0xFF4A69BD), Color(0xFF1A2E56)],
-                      ),
-                    ),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        context.goNamed(AppRouteNames.externalBrowser);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            l10n.openStoreButton('Amazon'),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            l10n.opensInExternalBrowser,
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 14,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
+          ),
     );
   }
 

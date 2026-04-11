@@ -3,6 +3,7 @@ import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/routes/app_route_paths.dart';
 import 'package:matthewmoec_app/features/bottom_nav/presentation/screens/bottom_nav_screen.dart';
 import 'package:matthewmoec_app/features/charity/presentation/screens/charity_screen.dart';
+import 'package:matthewmoec_app/features/home/domain/entities/store_entity.dart';
 import 'package:matthewmoec_app/features/home/presentation/screens/external_browser_screen.dart';
 import 'package:matthewmoec_app/features/home/presentation/screens/home_screen.dart';
 import 'package:matthewmoec_app/features/home/presentation/screens/how_it_works_screen.dart';
@@ -42,12 +43,13 @@ class AppRoutes {
                   GoRoute(
                     path: AppRoutePaths.storeDetails,
                     name: AppRouteNames.storeDetails,
-                    builder: (context, state) => const StoreDetailsScreen(),
+                    builder: (context, state) =>
+                        StoreDetailsScreen(slug: state.extra as String),
                   ),
                   GoRoute(
                     path: AppRoutePaths.externalBrowser,
                     name: AppRouteNames.externalBrowser,
-                    builder: (context, state) => const ExternalBrowserScreen(),
+                    builder: (context, state) => ExternalBrowserScreen(store: state.extra as StoreEntity),
                   ),
                 ],
               ),

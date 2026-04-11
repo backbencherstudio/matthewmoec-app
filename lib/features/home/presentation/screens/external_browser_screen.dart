@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
+import 'package:matthewmoec_app/features/home/domain/entities/store_entity.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
 class ExternalBrowserScreen extends StatelessWidget {
-  const ExternalBrowserScreen({super.key});
+  const ExternalBrowserScreen({super.key, required this.store});
+
+  final StoreEntity store;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +22,8 @@ class ExternalBrowserScreen extends StatelessWidget {
             onBackButtonPressed: () => context.goNamed(AppRouteNames.home),
             mode: AppHeaderMode.storeLogo,
             storeLogoPath: 'assets/images/amazon.png',
-            storeName: 'Amazon',
-            subtitle: 'amazon.com/?tag-affliate_id',
+            storeName: store.name,
+            subtitle: store.link!,
           ),
           Center(
             child: Padding(
@@ -31,6 +34,7 @@ class ExternalBrowserScreen extends StatelessWidget {
                 children: [
                   // Store Link Active Badge
                   Container(
+                    width: double.infinity,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 8,
@@ -50,8 +54,8 @@ class ExternalBrowserScreen extends StatelessWidget {
                   const SizedBox(height: 24),
 
                   // Amazon Header
-                  const Text(
-                    'Amazon',
+                  Text(
+                    store.name!,
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -62,7 +66,7 @@ class ExternalBrowserScreen extends StatelessWidget {
 
                   // Description Text
                   Text(
-                    l10n.amazonAssociateDisclaimer,
+                    store.subTextNote!,
                     style: TextStyle(
                       fontSize: 16,
                       color: Color(0xFF2C3E50),

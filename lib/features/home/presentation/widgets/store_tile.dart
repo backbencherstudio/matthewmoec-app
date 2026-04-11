@@ -6,19 +6,21 @@ class StoreTile extends StatelessWidget {
   final String title;
   final String subtitle;
   final String logo;
+  final String slug;
 
   const StoreTile({
     super.key,
     required this.title,
     required this.subtitle,
     required this.logo,
+    required this.slug,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.pushNamed(AppRouteNames.storeDetails);
+        context.pushNamed(AppRouteNames.storeDetails, extra: slug);
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),

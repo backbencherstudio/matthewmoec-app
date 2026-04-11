@@ -4,13 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
+import 'package:matthewmoec_app/features/app_config/presentation/providers/app_provider.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
-class ShareScreen extends StatelessWidget {
+class ShareScreen extends ConsumerWidget {
   const ShareScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.grey[100],
@@ -63,7 +64,15 @@ class ShareScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 12),
                           Text(
-                            l10n.defaultShareMessage,
+                            ref
+                                .watch(getAppConfigProvider)
+                                .when(
+                                  data: (appConfig) =>
+                                      appConfig.shareMessage ?? '',
+                                  loading: () => 'Loading...',
+                                  error: (error, stackTrace) =>
+                                      error.toString(),
+                                ),
                             style: TextStyle(
                               color: Colors.grey[700],
                               fontSize: 15,

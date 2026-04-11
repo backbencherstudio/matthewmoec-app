@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
+import 'package:matthewmoec_app/features/charity/presentation/providers/charity_provider.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
 class CharityScreen extends StatelessWidget {
@@ -30,80 +32,105 @@ class CharityScreen extends StatelessWidget {
               offset: const Offset(0, -40), // Moves the widget 20 pixels up
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 40,
-                        horizontal: 20,
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    final lastMonthCharity = ref.watch(
+                      lastMonthCharityProvider,
+                    );
+                    return lastMonthCharity.when(
+                      loading: () => Transform.translate(
+                        offset: const Offset(0, 100),
+                        child: const Center(child: CircularProgressIndicator()),
                       ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 20,
-                            offset: const Offset(0, 10),
-                          ),
-                        ],
-                        border: Border.all(color: const Color(0xFFF0F0F0)),
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            l10n.lastMonthConfirmedDonation,
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Color(0xFF4A68B1),
-                              fontWeight: FontWeight.w400,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 16),
-                          const Text(
-                            '\$1,240',
-                            style: TextStyle(
-                              fontSize: 48,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF1A2E56),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'January 2025',
-                                style: TextStyle(
-                                  color: Color(0xFF4A68B1),
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Padding(
+                      error: (error, stackTrace) =>
+                          Center(child: Text('Error: $error')),
+                      data: (data) => Column(
+                        children: data
+                            .map(
+                              (charity) => Container(
+                                width: double.infinity,
+                                margin: const EdgeInsets.only(bottom: 20),
                                 padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
+                                  vertical: 40,
+                                  horizontal: 20,
                                 ),
-                                child: Icon(
-                                  Icons.circle,
-                                  size: 6,
-                                  color: Colors.blue[300],
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(24),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.05),
+                                      blurRadius: 20,
+                                      offset: const Offset(0, 10),
+                                    ),
+                                  ],
+                                  border: Border.all(
+                                    color: const Color(0xFFF0F0F0),
+                                  ),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      l10n.lastMonthConfirmedDonation,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Color(0xFF4A68B1),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      '\$${charity.donationAmount.toString()}',
+                                      style: TextStyle(
+                                        fontSize: 48,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFF1A2E56),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            "${DateFormat('MMMM').format(charity.date!)} ${charity.date?.year}",
+                                            style: TextStyle(
+                                              color: Color(0xFF4A68B1),
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 8,
+                                          ),
+                                          child: Icon(
+                                            Icons.circle,
+                                            size: 6,
+                                            color: Colors.blue[300],
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                            charity.charityOrganizationName!,
+                                            style: TextStyle(
+                                              color: Color(0xFF4A68B1),
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
-                              const Text(
-                                'Red Cross',
-                                style: TextStyle(
-                                  color: Color(0xFF4A68B1),
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                            )
+                            .toList(),
                       ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
             ),
