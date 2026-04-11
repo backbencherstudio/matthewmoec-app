@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
+import 'package:matthewmoec_app/features/app_config/presentation/providers/app_provider.dart';
+import 'package:matthewmoec_app/features/home/presentation/providers/home_provider.dart';
 import 'package:matthewmoec_app/features/home/presentation/widgets/store_tile.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -46,37 +49,61 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   16.verticalSpace,
-                  StoreTile(
-                    logo: 'A', // Replace with Image.network or Asset
-                    title: 'Amazon',
-                    subtitle: l10n.amazonSubtext,
-                  ),
-                  StoreTile(
-                    title: 'Walmart',
-                    subtitle: l10n.electronicsAndMore,
-                    logo: 'W',
-                  ),
-                  StoreTile(
-                    title: 'Home Depot',
-                    subtitle: l10n.homeAndFashion,
-                    logo: 'H',
-                  ),
-                  StoreTile(
-                    title: 'Etsy',
-                    subtitle: l10n.homeAndFashion,
-                    logo: 'E',
-                  ),
-                  StoreTile(
-                    title: 'Target',
-                    subtitle: l10n.homeAndFashion,
-                    logo: 'T',
-                  ),
-                  StoreTile(
-                    title: 'Chewy',
-                    subtitle: l10n.homeAndFashion,
-                    logo: 'C',
-                  ),
+                  ref
+                      .watch(getStoresProvider)
+                      .when(
+                        data: (stores) {
+                          return Column(
+                            children: stores.map((store) {
+                              return StoreTile(
+                                logo: store.name?[0] ?? '',
+                                title: store.name!,
+                                subtitle: store.subTextNote!,
+                                slug: store.slug!,
+                              );
+                            }).toList(),
+                          );
+                        },
+                        loading: () {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                        error: (error, stackTrace) {
+                          return Center(child: Text(error.toString()));
+                        },
+                      ),
 
+                  // StoreTile(
+                  //   logo: 'A', // Replace with Image.network or Asset
+                  //   title: 'Amazon',
+                  //   subtitle: l10n.amazonSubtext,
+                  // ),
+                  // StoreTile(
+                  //   title: 'Walmart',
+                  //   subtitle: l10n.electronicsAndMore,
+                  //   logo: 'W',
+                  // ),
+                  // StoreTile(
+                  //   title: 'Home Depot',
+                  //   subtitle: l10n.homeAndFashion,
+                  //   logo: 'H',
+                  // ),
+                  // StoreTile(
+                  //   title: 'Etsy',
+                  //   subtitle: l10n.homeAndFashion,
+                  //   logo: 'E',
+                  // ),
+                  // StoreTile(
+                  //   title: 'Target',
+                  //   subtitle: l10n.homeAndFashion,
+                  //   logo: 'T',
+                  // ),
+                  // StoreTile(
+                  //   title: 'Chewy',
+                  //   subtitle: l10n.homeAndFashion,
+                  //   logo: 'C',
+                  // ),
                   const SizedBox(height: 24),
 
                   // Footer Donation Card
@@ -89,12 +116,20 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          l10n.lastMonthDonationHome('800', '440'),
+                          ref
+                              .watch(getAppConfigProvider)
+                              .when(
+                                data: (appConfig) =>
+                                    appConfig.messageHomePage ?? '',
+                                loading: () => 'Loading...',
+                                error: (error, stackTrace) => error.toString(),
+                              ),
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 16,
                             height: 1.4,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 20),
                         ElevatedButton(
