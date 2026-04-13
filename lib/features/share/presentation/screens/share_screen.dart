@@ -141,12 +141,10 @@ class ShareScreen extends ConsumerWidget {
                               onTap: () async {
                                 final Uri emailLaunchUri = Uri(
                                   scheme: 'mailto',
-                                  path:
-                                      '', // Add an email address here if you want a specific recipient
+                                  path: '',
                                   query: encodeQueryParameters(<String, String>{
                                     'subject': 'Check out this awesome app!',
-                                    'body':
-                                        'Here is the link: https://your-app-link.com',
+                                    'body': 'Here is the link: $url',
                                   }),
                                 );
 
