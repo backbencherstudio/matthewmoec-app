@@ -51,6 +51,7 @@ class ShareScreen extends ConsumerWidget {
                       children: [
                         // 1. Message Card
                         Container(
+                          width: double.infinity,
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -77,7 +78,7 @@ class ShareScreen extends ConsumerWidget {
                               const SizedBox(height: 12),
                               Text(
                                 ref
-                                    .watch(getAppConfigProvider)
+                                    .watch(translatedAppConfigProvider)
                                     .when(
                                       data: (appConfig) =>
                                           appConfig.shareMessage ?? '',
