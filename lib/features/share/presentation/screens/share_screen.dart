@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +9,8 @@ import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/widgets/app_header.dart';
 import 'package:matthewmoec_app/features/app_config/presentation/providers/app_provider.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ShareScreen extends ConsumerWidget {
   const ShareScreen({super.key});
@@ -32,134 +37,238 @@ class ShareScreen extends ConsumerWidget {
             ),
             Transform.translate(
               offset: const Offset(0, -40),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // 1. Message Card
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l10n.shareMessageTitle,
-                            style: const TextStyle(
-                              color: Colors.indigo,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            ref
-                                .watch(getAppConfigProvider)
-                                .when(
-                                  data: (appConfig) =>
-                                      appConfig.shareMessage ?? '',
-                                  loading: () => 'Loading...',
-                                  error: (error, stackTrace) =>
-                                      error.toString(),
-                                ),
-                            style: TextStyle(
-                              color: Colors.grey[700],
-                              fontSize: 15,
-                              height: 1.4,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          const Text(
-                            "CartForGood.com",
-                            style: TextStyle(color: Colors.grey, fontSize: 15),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-
-                    // 2. Share Options Grid
-                    Row(
+              child: Consumer(
+                builder: (context, ref, child) {
+                  final appConfigAsync = ref.read(getAppConfigProvider);
+                  final appConfig = appConfigAsync.value;
+                  final String? url = Platform.isAndroid
+                      ? appConfig?.androidPlayStoreUrl
+                      : appConfig?.iosAppStoreUrl;
+                  return Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        _ShareOption(
-                          icon: Icons.chat_bubble_outline,
-                          label: l10n.methodMessage,
-                          onTap: () {},
-                        ),
-                        const SizedBox(width: 12),
-                        _ShareOption(
-                          icon: Icons.email_outlined,
-                          label: l10n.methodEmail,
-                          onTap: () {},
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        _ShareOption(
-                          icon: Icons.message,
-                          label: l10n.methodWhatsApp,
-                          onTap: () {},
-                        ),
-                        const SizedBox(width: 12),
-                        _ShareOption(
-                          icon: Icons.link,
-                          label: l10n.methodCopyLink,
-                          onTap: () {},
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 40),
-
-                    // 3. Share Now Button
-                    SizedBox(
-                      width: double.infinity,
-                      height: 60,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2B468F), // Deep blue
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              l10n.shareNow,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                        // 1. Message Card
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.05),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
                               ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                l10n.shareMessageTitle,
+                                style: const TextStyle(
+                                  color: Colors.indigo,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              Text(
+                                ref
+                                    .watch(getAppConfigProvider)
+                                    .when(
+                                      data: (appConfig) =>
+                                          appConfig.shareMessage ?? '',
+                                      loading: () => 'Loading...',
+                                      error: (error, stackTrace) =>
+                                          error.toString(),
+                                    ),
+                                style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontSize: 15,
+                                  height: 1.4,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              const Text(
+                                "CartForGood.com",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+
+                        // 2. Share Options Grid
+                        Row(
+                          children: [
+                            _ShareOption(
+                              icon: Icons.chat_bubble_outline,
+                              label: l10n.methodMessage,
+                              onTap: () async {
+                                final String message =
+                                    'Check out this awesome app! $url';
+
+                                // 1. Manually encode the message.
+                                // Uri.encodeComponent explicitly turns spaces into %20
+                                final String encodedMessage =
+                                    Uri.encodeComponent(message);
+
+                                // 2. Parse the entire string into a URI manually
+                                final Uri smsUri = Uri.parse(
+                                  'sms:?body=$encodedMessage',
+                                );
+
+                                if (await canLaunchUrl(smsUri)) {
+                                  await launchUrl(smsUri);
+                                } else {
+                                  debugPrint(
+                                    'Could not launch the Messages app',
+                                  );
+                                }
+                              },
                             ),
-                            SizedBox(width: 10),
-                            Icon(Icons.north_east, color: Colors.white),
+                            const SizedBox(width: 12),
+                            _ShareOption(
+                              icon: Icons.email_outlined,
+                              label: l10n.methodEmail,
+                              onTap: () async {
+                                final Uri emailLaunchUri = Uri(
+                                  scheme: 'mailto',
+                                  path:
+                                      '', // Add an email address here if you want a specific recipient
+                                  query: encodeQueryParameters(<String, String>{
+                                    'subject': 'Check out this awesome app!',
+                                    'body':
+                                        'Here is the link: https://your-app-link.com',
+                                  }),
+                                );
+
+                                await launchUrl(emailLaunchUri);
+                                if (await canLaunchUrl(emailLaunchUri)) {
+                                } else {
+                                  debugPrint('Could not launch email client');
+                                }
+                              },
+                            ),
                           ],
                         ),
-                      ),
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            _ShareOption(
+                              icon: Icons.message,
+                              label: l10n.methodWhatsApp,
+                              onTap: () async {
+                                final String message =
+                                    'Hey! Check out this link: $url';
+
+                                // Encode the message to safely handle spaces and special characters
+                                final String encodedMessage =
+                                    Uri.encodeComponent(message);
+
+                                // Use the universal wa.me link
+                                final Uri whatsappUri = Uri.parse(
+                                  'https://wa.me/?text=$encodedMessage',
+                                );
+
+                                if (await canLaunchUrl(whatsappUri)) {
+                                  await launchUrl(
+                                    whatsappUri,
+                                    mode: LaunchMode
+                                        .externalApplication, // Forces it to open the app, not a webview
+                                  );
+                                } else {
+                                  debugPrint('Could not launch WhatsApp');
+                                }
+                              },
+                            ),
+                            const SizedBox(width: 12),
+                            _ShareOption(
+                              icon: Icons.link,
+                              label: l10n.methodCopyLink,
+                              onTap: () async {
+                                await Clipboard.setData(
+                                  ClipboardData(text: url!),
+                                );
+                                if (context.mounted) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Link copied to clipboard!',
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 40),
+
+                        // 3. Share Now Button
+                        SizedBox(
+                          width: double.infinity,
+                          height: 60,
+                          child: Consumer(
+                            builder: (context, ref, child) => ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(
+                                  0xFF2B468F,
+                                ), // Deep blue
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                              ),
+                              onPressed: () async {
+                                SharePlus.instance.share(
+                                  ShareParams(
+                                    text: 'Check out this link: $url',
+                                  ),
+                                );
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    l10n.shareNow,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Icon(Icons.north_east, color: Colors.white),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map(
+          (MapEntry<String, String> e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+        )
+        .join('&');
   }
 }
 
