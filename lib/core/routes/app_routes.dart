@@ -49,7 +49,9 @@ class AppRoutes {
                   GoRoute(
                     path: AppRoutePaths.externalBrowser,
                     name: AppRouteNames.externalBrowser,
-                    builder: (context, state) => ExternalBrowserScreen(store: state.extra as StoreEntity),
+                    builder: (context, state) => ExternalBrowserScreen(
+                      store: state.extra as StoreEntity,
+                    ),
                   ),
                 ],
               ),
