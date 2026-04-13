@@ -8,6 +8,21 @@ class CharityModel extends CharityEntity {
     super.date,
   });
 
+  CharityModel copyWith({
+    String? id,
+    String? charityOrganizationName,
+    int? donationAmount,
+    DateTime? date,
+  }) {
+    return CharityModel(
+      id: id ?? this.id,
+      charityOrganizationName:
+          charityOrganizationName ?? this.charityOrganizationName,
+      donationAmount: donationAmount ?? this.donationAmount,
+      date: date ?? this.date,
+    );
+  }
+
   CharityModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     charityOrganizationName = json['charity_organization_name'];

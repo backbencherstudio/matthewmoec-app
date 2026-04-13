@@ -12,6 +12,28 @@ class StoreModel extends StoreEntity {
     super.logoUrl,
   });
 
+  StoreModel copyWith({
+    String? id,
+    String? name,
+    String? slug,
+    String? link,
+    String? subTextNote,
+    String? howItWorks,
+    String? logo,
+    String? logoUrl,
+  }) {
+    return StoreModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      slug: slug ?? this.slug,
+      link: link ?? this.link,
+      subTextNote: subTextNote ?? this.subTextNote,
+      howItWorks: howItWorks ?? this.howItWorks,
+      logo: logo ?? this.logo,
+      logoUrl: logoUrl ?? this.logoUrl,
+    );
+  }
+
   StoreModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
