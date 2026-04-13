@@ -13,6 +13,34 @@ class AppModel extends AppEntity {
     super.iosAppStoreUrl,
     super.androidPlayStoreUrl,
   });
+
+  AppModel copyWith({
+  String? id,
+  String? createdAt,
+  String? updatedAt,
+  String? shareMessage,
+  String? messageHomePage,
+  String? howItWorks,
+  String? appName,
+  String? totalLastMonthDonationAmount,
+  String? iosAppStoreUrl,
+  String? androidPlayStoreUrl,
+  }) {
+    return AppModel(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      shareMessage: shareMessage ?? this.shareMessage,
+      messageHomePage: messageHomePage ?? this.messageHomePage,
+      howItWorks: howItWorks ?? this.howItWorks,
+      appName: appName ?? this.appName,
+      totalLastMonthDonationAmount: totalLastMonthDonationAmount ?? this.totalLastMonthDonationAmount,
+      iosAppStoreUrl: iosAppStoreUrl ?? this.iosAppStoreUrl,
+      androidPlayStoreUrl: androidPlayStoreUrl ?? this.androidPlayStoreUrl,
+    );
+  }
+    
+
   AppModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     createdAt = json['created_at'];
