@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +10,7 @@ import 'package:matthewmoec_app/features/app_config/presentation/providers/app_p
 import 'package:matthewmoec_app/features/home/presentation/providers/home_provider.dart';
 import 'package:matthewmoec_app/features/home/presentation/widgets/store_tile.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -140,7 +143,15 @@ class HomeScreen extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(25),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            SharePlus.instance.share(
+                              ShareParams(
+                                text: Platform.isAndroid
+                                    ? 'Check out this link: ${ref.watch(getAppConfigProvider).value?.androidPlayStoreUrl}'
+                                    : 'Check out this link: ${ref.watch(getAppConfigProvider).value?.iosAppStoreUrl}',
+                              ),
+                            );
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
