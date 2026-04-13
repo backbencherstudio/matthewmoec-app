@@ -53,7 +53,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                   16.verticalSpace,
                   ref
-                      .watch(getStoresProvider)
+                      .watch(translatedStoresProvider)
                       .when(
                         data: (stores) {
                           return Column(
@@ -120,7 +120,7 @@ class HomeScreen extends ConsumerWidget {
                       children: [
                         Text(
                           ref
-                              .watch(getAppConfigProvider)
+                              .watch(translatedAppConfigProvider)
                               .when(
                                 data: (appConfig) =>
                                     appConfig.messageHomePage ?? '',

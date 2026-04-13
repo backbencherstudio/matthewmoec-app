@@ -17,153 +17,163 @@ class StoreDetailsScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ref
-          .watch(getStoreDetailsProvider(slug))
-          .when(
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (error, stackTrace) => Center(child: Text(error.toString())),
-            data: (store) => SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            AppHeader(
+              backButtonText: l10n.backToStores,
+              onBackButtonPressed: () => context.pop(),
+              mode: AppHeaderMode.storeLogo,
+              storeLogoPath: 'assets/images/amazon.png',
+              storeName: ref
+                  .watch(getStoreDetailsProvider(slug))
+                  .when(
+                    data: (data) => data.name,
+                    error: (error, stackTrace) => '',
+                    loading: () => 'loading...',
+                  ),
+              subtitle: l10n.opensInDeviceBrowser,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  AppHeader(
-                    backButtonText: l10n.backToStores,
-                    onBackButtonPressed: () => context.pop(),
-                    mode: AppHeaderMode.storeLogo,
-                    storeLogoPath: 'assets/images/amazon.png',
-                    storeName: store.name,
-                    subtitle: l10n.opensInDeviceBrowser,
+                  _buildInfoCard(
+                    title: l10n.howItWorksTitle,
+                    content: RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                          color: Color(0xFF1A2E56),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          height: 1.4,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: ref
+                                .watch(getStoreDetailsProvider(slug))
+                                .when(
+                                  data: (data) => data.howItWorks,
+                                  error: (error, stackTrace) => '',
+                                  loading: () => 'loading...',
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
+                  const SizedBox(height: 16),
+
+                  // 2. Store Links Card
+                  _buildInfoCard(
+                    title: l10n.storeSelectionTitle,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildInfoCard(
-                          title: l10n.howItWorksTitle,
-                          content: RichText(
-                            text: TextSpan(
+                        GestureDetector(
+                          onTap: () {
+                            // TODO: Implement store link functionality
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12,
+                              horizontal: 16,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFE2E4EB),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Text(
+                              l10n.storeLinkActive,
                               style: TextStyle(
                                 color: Color(0xFF1A2E56),
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                height: 1.4,
+                                fontSize: 16,
                               ),
-                              children: [TextSpan(text: store.howItWorks)],
                             ),
                           ),
                         ),
-                        const SizedBox(height: 16),
-
-                        // 2. Store Links Card
-                        _buildInfoCard(
-                          title: l10n.storeSelectionTitle,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  // TODO: Implement store link functionality
-                                },
-                                child: Container(
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 12,
-                                    horizontal: 16,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFFE2E4EB),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Text(
-                                    l10n.storeLinkActive,
-                                    style: TextStyle(
-                                      color: Color(0xFF1A2E56),
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(
-                                l10n.amazonAssociateDisclaimer,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
+                        const SizedBox(height: 12),
+                        Text(
+                          l10n.amazonAssociateDisclaimer,
+                          style: TextStyle(color: Colors.grey, fontSize: 14),
                         ),
-                        const SizedBox(height: 16),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
 
-                        // 3. Charity Card
-                        _buildInfoCard(
-                          title: l10n.thisMonthsCharity,
-                          child: ref
-                              .watch(getThisMonthCharitiesProvider)
-                              .when(
-                                data: (charities) => Column(
-                                  children: List.generate(
-                                    charities.length,
-                                    (index) => Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Flexible(
-                                              child: Text(
-                                                charities[index]
-                                                    .charityOrganizationName!,
-                                                style: TextStyle(
-                                                  color: Color(0xFF1A2E56),
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 8.0,
-                                              ),
-                                              child: Icon(
-                                                Icons.circle,
-                                                size: 6,
-                                                color: Color(0xFF1A2E56),
-                                              ),
-                                            ),
-                                            Text(
-                                              "${DateFormat('MMMM').format(charities[index].date!)} ${charities[index].date?.year}",
-                                              style: TextStyle(
-                                                color: Color(0xFF1A2E56),
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ],
+                  // 3. Charity Card
+                  _buildInfoCard(
+                    title: l10n.thisMonthsCharity,
+                    child: ref
+                        .watch(getThisMonthCharitiesProvider)
+                        .when(
+                          data: (charities) => Column(
+                            children: List.generate(
+                              charities.length,
+                              (index) => Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          charities[index]
+                                              .charityOrganizationName!,
+                                          style: TextStyle(
+                                            color: Color(0xFF1A2E56),
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                        if (index < charities.length - 1)
-                                          Divider(),
-                                      ],
-                                    ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 8.0,
+                                        ),
+                                        child: Icon(
+                                          Icons.circle,
+                                          size: 6,
+                                          color: Color(0xFF1A2E56),
+                                        ),
+                                      ),
+                                      Text(
+                                        "${DateFormat('MMMM').format(charities[index].date!)} ${charities[index].date?.year}",
+                                        style: TextStyle(
+                                          color: Color(0xFF1A2E56),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                error: (error, stackTrace) => const SizedBox(),
-                                loading: () => const SizedBox(),
+                                  if (index < charities.length - 1) Divider(),
+                                ],
                               ),
-                        ),
-                        const SizedBox(height: 16),
-
-                        // 4. Gradient Button
-                        Container(
-                          width: double.infinity,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            gradient: const LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [Color(0xFF4A69BD), Color(0xFF1A2E56)],
                             ),
                           ),
-                          child: ElevatedButton(
+                          error: (error, stackTrace) => const SizedBox(),
+                          loading: () => const SizedBox(),
+                        ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // 4. Gradient Button
+                  Container(
+                    width: double.infinity,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      gradient: const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Color(0xFF4A69BD), Color(0xFF1A2E56)],
+                      ),
+                    ),
+                    child: ref
+                        .watch(translatedStoreProvider(slug))
+                        .when(
+                          data: (store) => ElevatedButton(
                             onPressed: () async {
                               final Uri url = Uri.parse(store.link!);
                               await launchUrl(
@@ -207,14 +217,17 @@ class StoreDetailsScreen extends ConsumerWidget {
                               ],
                             ),
                           ),
+
+                          error: (error, stackTrace) => const SizedBox(),
+                          loading: () => const SizedBox(),
                         ),
-                      ],
-                    ),
                   ),
                 ],
               ),
             ),
-          ),
+          ],
+        ),
+      ),
     );
   }
 
