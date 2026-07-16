@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/constants/app_color.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/features/splash/presentation/providers/splash_provider.dart';
+import 'package:matthewmoec_app/features/onboarding/presentation/providers/consent_provider.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -48,8 +49,15 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     _controller.forward();
   }
 
-  void _navigateToNextScreen() {
-    context.goNamed(AppRouteNames.home);
+  Future<void> _navigateToNextScreen() async {
+    final hasAccepted = await ref.read(consentStorageProvider).hasAcceptedConsent();
+    if (mounted) {
+      if (hasAccepted) {
+        context.goNamed(AppRouteNames.home);
+      } else {
+        context.goNamed(AppRouteNames.consent);
+      }
+    }
   }
 
   @override

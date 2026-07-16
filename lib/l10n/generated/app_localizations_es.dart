@@ -128,4 +128,23 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get methodCopyLink => 'Copiar enlace';
+
+  @override
+  String get consentTitle => 'Bienvenido';
+
+  @override
+  String get consentPrivacyPolicy => 'Política de privacidad';
+
+  @override
+  String get consentTerms => 'Términos y condiciones';
+
+  @override
+  String get consentSupport => 'Soporte y preguntas frecuentes';
+
+  @override
+  String get consentAgreement =>
+      'He leído y acepto la Política de Privacidad y los Términos y Condiciones.';
+
+  @override
+  String get consentNext => 'Siguiente';
 }

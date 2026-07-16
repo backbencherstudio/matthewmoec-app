@@ -10,6 +10,8 @@ import 'package:matthewmoec_app/features/home/presentation/screens/how_it_works_
 import 'package:matthewmoec_app/features/home/presentation/screens/store_details_screen.dart';
 import 'package:matthewmoec_app/features/share/presentation/screens/share_screen.dart';
 import 'package:matthewmoec_app/features/splash/presentation/screens/splash_screen.dart';
+import 'package:matthewmoec_app/features/onboarding/presentation/screens/consent_screen.dart';
+import 'package:matthewmoec_app/core/widgets/app_webview_screen.dart';
 
 class AppRoutes {
   static final router = GoRouter(
@@ -20,6 +22,22 @@ class AppRoutes {
         path: AppRoutePaths.splash,
         name: AppRouteNames.splash,
         builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: AppRoutePaths.consent,
+        name: AppRouteNames.consent,
+        builder: (context, state) => const ConsentScreen(),
+      ),
+      GoRoute(
+        path: AppRoutePaths.webview,
+        name: AppRouteNames.webview,
+        builder: (context, state) {
+          final extras = state.extra as Map<String, String>? ?? {};
+          return AppWebViewScreen(
+            title: extras['title'] ?? '',
+            url: extras['url'] ?? '',
+          );
+        },
       ),
 
       // ── Shell: persistent bottom nav ──

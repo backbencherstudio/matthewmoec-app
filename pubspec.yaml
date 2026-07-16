@@ -22,6 +22,8 @@ dependencies:
   url_launcher: ^6.3.2
   share_plus: ^13.0.0
   google_mlkit_translation: ^0.13.1
+  shared_preferences: ^2.5.5
+  webview_flutter: ^4.14.1
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +38,6 @@ flutter:
    - assets/localization/
    - assets/logos/
    - assets/icons/
-   - assets/images/
+   - assets/images/ 
    - .env
 

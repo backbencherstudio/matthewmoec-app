@@ -61,5 +61,12 @@
   "methodMessage": "Message",
   "methodEmail": "Email",
   "methodWhatsApp": "WhatsApp",
-  "methodCopyLink": "Copy Link"
+  "methodCopyLink": "Copy Link",
+  
+  "consentTitle": "Welcome",
+  "consentPrivacyPolicy": "Privacy Policy",
+  "consentTerms": "Terms & Conditions",
+  "consentSupport": "Support & FAQ",
+  "consentAgreement": "I have read and agree to the Privacy Policy and Terms & Conditions.",
+  "consentNext": "Next"
 }

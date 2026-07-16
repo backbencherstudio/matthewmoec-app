@@ -313,6 +313,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Copy Link'**
   String get methodCopyLink;
+
+  /// No description provided for @consentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get consentTitle;
+
+  /// No description provided for @consentPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get consentPrivacyPolicy;
+
+  /// No description provided for @consentTerms.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get consentTerms;
+
+  /// No description provided for @consentSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Support & FAQ'**
+  String get consentSupport;
+
+  /// No description provided for @consentAgreement.
+  ///
+  /// In en, this message translates to:
+  /// **'I have read and agree to the Privacy Policy and Terms & Conditions.'**
+  String get consentAgreement;
+
+  /// No description provided for @consentNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get consentNext;
 }
 
 class _AppLocalizationsDelegate

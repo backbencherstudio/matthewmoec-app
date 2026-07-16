@@ -7,4 +7,6 @@ class AppRouteNames {
   static const String externalBrowser = 'externalBrowser';
   static const String charity = 'charity';
   static const String share = 'share';
+  static const String consent = 'consent';
+  static const String webview = 'webview';
 }

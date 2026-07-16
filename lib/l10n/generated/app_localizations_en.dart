@@ -127,4 +127,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get methodCopyLink => 'Copy Link';
+
+  @override
+  String get consentTitle => 'Welcome';
+
+  @override
+  String get consentPrivacyPolicy => 'Privacy Policy';
+
+  @override
+  String get consentTerms => 'Terms & Conditions';
+
+  @override
+  String get consentSupport => 'Support & FAQ';
+
+  @override
+  String get consentAgreement =>
+      'I have read and agree to the Privacy Policy and Terms & Conditions.';
+
+  @override
+  String get consentNext => 'Next';
 }
