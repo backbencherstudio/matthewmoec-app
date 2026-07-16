@@ -72,7 +72,7 @@ class StoreDetailsScreen extends ConsumerWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            // TODO: Implement store link functionality
+                            
                           },
                           child: Container(
                             width: double.infinity,
