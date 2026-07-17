@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/constants/app_color.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
+import 'package:matthewmoec_app/core/widgets/double_tap_to_exit.dart';
 import 'package:matthewmoec_app/features/onboarding/presentation/providers/consent_provider.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
@@ -15,9 +16,10 @@ class ConsentScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final isAccepted = ref.watch(consentAcceptedProvider);
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
+    return DoubleTapToExit(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 40.h),
           child: Column(
@@ -118,6 +120,7 @@ class ConsentScreen extends ConsumerWidget {
             ],
           ),
         ),
+      ),
       ),
     );
   }
