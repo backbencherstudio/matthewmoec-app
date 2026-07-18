@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:matthewmoec_app/core/widgets/double_tap_to_exit.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
 class BottomNavScreen extends StatelessWidget {
@@ -28,22 +29,24 @@ class BottomNavScreen extends StatelessWidget {
         label: l10n.navShare,
       ),
     ];
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark,
-      ),
-      child: Scaffold(
-        body: navigationShell,
-        bottomNavigationBar: BottomNavigationBar(
-          elevation: 0,
-          currentIndex: navigationShell.currentIndex,
-          onTap: (index) => navigationShell.goBranch(
-            index,
-            initialLocation: index == navigationShell.currentIndex,
+    return DoubleTapToExit(
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+        ),
+        child: Scaffold(
+          body: navigationShell,
+          bottomNavigationBar: BottomNavigationBar(
+            elevation: 0,
+            currentIndex: navigationShell.currentIndex,
+            onTap: (index) => navigationShell.goBranch(
+              index,
+              initialLocation: index == navigationShell.currentIndex,
+            ),
+            items: destinations,
           ),
-          items: destinations,
         ),
       ),
     );
