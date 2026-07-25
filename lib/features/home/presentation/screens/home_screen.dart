@@ -60,7 +60,7 @@ class HomeScreen extends ConsumerWidget {
                             return Column(
                               children: stores.map((store) {
                                 return StoreTile(
-                                  logo: store.name?[0] ?? '',
+                                  logo: store.logoUrl!,
                                   title: store.name!,
                                   subtitle: store.subTextNote!,
                                   slug: store.slug!,

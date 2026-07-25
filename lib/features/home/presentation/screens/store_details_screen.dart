@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -71,9 +72,7 @@ class StoreDetailsScreen extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            
-                          },
+                          onTap: () {},
                           child: Container(
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(
@@ -160,8 +159,9 @@ class StoreDetailsScreen extends ConsumerWidget {
 
                   // 4. Gradient Button
                   Container(
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
                     width: double.infinity,
-                    height: 100,
+                    //height: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       gradient: const LinearGradient(
@@ -205,15 +205,15 @@ class StoreDetailsScreen extends ConsumerWidget {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 4),
-                                Text(
-                                  l10n.opensInExternalBrowser,
-                                  style: TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 14,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
+                                // SizedBox(height: 4),
+                                // Text(
+                                //   l10n.opensInExternalBrowser,
+                                //   style: TextStyle(
+                                //     color: Colors.white70,
+                                //     fontSize: 14,
+                                //   ),
+                                //   textAlign: TextAlign.center,
+                                // ),
                               ],
                             ),
                           ),
