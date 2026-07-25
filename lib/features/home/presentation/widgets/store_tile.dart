@@ -46,6 +46,16 @@ class StoreTile extends StatelessWidget {
                 fit: BoxFit.contain,
                 height: 44.h,
                 width: 44.w,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return SizedBox(
+                    height: 44.h,
+                    width: 44.w,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
                 errorBuilder: (context, error, stackTrace) {
                   return Text(
                     title[0].toUpperCase(),

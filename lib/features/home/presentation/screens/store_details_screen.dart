@@ -16,6 +16,8 @@ class StoreDetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final storeAsync = ref.watch(translatedStoreProvider(slug));
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -25,14 +27,18 @@ class StoreDetailsScreen extends ConsumerWidget {
               backButtonText: l10n.backToStores,
               onBackButtonPressed: () => context.pop(),
               mode: AppHeaderMode.storeLogo,
-              storeLogoPath: 'assets/images/amazon.png',
-              storeName: ref
-                  .watch(getStoreDetailsProvider(slug))
-                  .when(
-                    data: (data) => data.name,
-                    error: (error, stackTrace) => '',
-                    loading: () => 'loading...',
-                  ),
+              isLogoLoading: storeAsync.isLoading,
+              isLogoError: storeAsync.hasError,
+              storeLogoPath: storeAsync.when(
+                data: (data) => data.logoUrl,
+                error: (error, stackTrace) => null,
+                loading: () => null,
+              ),
+              storeName: storeAsync.when(
+                data: (data) => data.name,
+                error: (error, stackTrace) => '',
+                loading: () => 'loading...',
+              ),
               subtitle: l10n.opensInDeviceBrowser,
             ),
             Padding(
@@ -51,13 +57,11 @@ class StoreDetailsScreen extends ConsumerWidget {
                         ),
                         children: [
                           TextSpan(
-                            text: ref
-                                .watch(getStoreDetailsProvider(slug))
-                                .when(
-                                  data: (data) => data.howItWorks,
-                                  error: (error, stackTrace) => '',
-                                  loading: () => 'loading...',
-                                ),
+                            text: storeAsync.when(
+                              data: (data) => data.howItWorks,
+                              error: (error, stackTrace) => '',
+                              loading: () => 'loading...',
+                            ),
                           ),
                         ],
                       ),
@@ -170,57 +174,45 @@ class StoreDetailsScreen extends ConsumerWidget {
                         colors: [Color(0xFF4A69BD), Color(0xFF1A2E56)],
                       ),
                     ),
-                    child: ref
-                        .watch(translatedStoreProvider(slug))
-                        .when(
-                          data: (store) => ElevatedButton(
-                            onPressed: () async {
-                              final Uri url = Uri.parse(store.link!);
-                              await launchUrl(
-                                url,
-                                mode: LaunchMode.externalApplication,
-                              );
-                              if (context.mounted) {
-                                context.goNamed(
-                                  AppRouteNames.externalBrowser,
-                                  extra: store,
-                                );
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
+                    child: storeAsync.when(
+                      data: (store) => ElevatedButton(
+                        onPressed: () async {
+                          final Uri url = Uri.parse(store.link!);
+                          await launchUrl(
+                            url,
+                            mode: LaunchMode.externalApplication,
+                          );
+                          if (context.mounted) {
+                            context.goNamed(
+                              AppRouteNames.externalBrowser,
+                              extra: store,
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              l10n.openStoreButton(store.name!),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  l10n.openStoreButton(store.name!),
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                // SizedBox(height: 4),
-                                // Text(
-                                //   l10n.opensInExternalBrowser,
-                                //   style: TextStyle(
-                                //     color: Colors.white70,
-                                //     fontSize: 14,
-                                //   ),
-                                //   textAlign: TextAlign.center,
-                                // ),
-                              ],
-                            ),
-                          ),
-
-                          error: (error, stackTrace) => const SizedBox(),
-                          loading: () => const SizedBox(),
+                          ],
                         ),
+                      ),
+                      error: (error, stackTrace) => const SizedBox(),
+                      loading: () => const SizedBox(),
+                    ),
                   ),
                 ],
               ),

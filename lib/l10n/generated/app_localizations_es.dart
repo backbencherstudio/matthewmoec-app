@@ -34,6 +34,12 @@ class AppLocalizationsEs extends AppLocalizations {
       'Ayude a otros a comprar y contribuir';
 
   @override
+  String get search => 'Buscar';
+
+  @override
+  String get noStoresFound => 'No se encontraron tiendas';
+
+  @override
   String get navHome => 'Inicio';
 
   @override

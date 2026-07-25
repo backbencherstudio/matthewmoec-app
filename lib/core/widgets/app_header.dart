@@ -20,10 +20,11 @@ class AppHeader extends ConsumerWidget {
     this.storeLogoPath,
     this.storeName,
     this.showLocaleToggle = true,
+    this.isLogoLoading = false,
+    this.isLogoError = false,
   }) : assert(
-         mode == AppHeaderMode.appLogo ||
-             (storeLogoPath != null && storeName != null),
-         'storeLogo mode requires storeLogoPath and storeName',
+         mode == AppHeaderMode.appLogo || storeName != null,
+         'storeLogo mode requires storeName',
        );
 
   final String? backButtonText;
@@ -32,6 +33,8 @@ class AppHeader extends ConsumerWidget {
   final double? bottomPadding;
   final AppHeaderMode mode;
   final bool showLocaleToggle;
+  final bool isLogoLoading;
+  final bool isLogoError;
 
   /// Asset path or network URL for the store logo (used in storeLogo mode)
   final String? storeLogoPath;
@@ -95,19 +98,73 @@ class AppHeader extends ConsumerWidget {
                         // Store logo — supports asset paths and network URLs
                         ClipRRect(
                           borderRadius: BorderRadius.circular(12.r),
-                          child: storeLogoPath!.startsWith('http')
-                              ? Image.network(
-                                  storeLogoPath!,
-                                  width: 40.w,
-                                  height: 40.w,
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.asset(
-                                  storeLogoPath!,
-                                  width: 40.w,
-                                  height: 40.w,
-                                  fit: BoxFit.cover,
-                                ),
+                          child: Container(
+                            width: 40.w,
+                            height: 40.w,
+                            color: Colors.white.withValues(alpha: 0.1),
+                            child: isLogoLoading
+                                ? const Center(
+                                    child: SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                      ),
+                                    ),
+                                  )
+                                : isLogoError
+                                    ? const Icon(
+                                        Icons.error_outline,
+                                        color: Colors.red,
+                                      )
+                                    : (storeLogoPath == null || storeLogoPath!.isEmpty)
+                                        ? Center(
+                                            child: Text(
+                                              storeName!.isNotEmpty ? storeName![0].toUpperCase() : '',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18.sp,
+                                              ),
+                                            ),
+                                          )
+                                        : storeLogoPath!.startsWith('http')
+                                            ? Image.network(
+                                                storeLogoPath!,
+                                                width: 40.w,
+                                                height: 40.w,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error, stackTrace) =>
+                                                    Center(
+                                                      child: Text(
+                                                        storeName!.isNotEmpty ? storeName![0].toUpperCase() : '',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: 18.sp,
+                                                        ),
+                                                      ),
+                                                    ),
+                                              )
+                                            : Image.asset(
+                                                storeLogoPath!,
+                                                width: 40.w,
+                                                height: 40.w,
+                                                fit: BoxFit.cover,
+                                                errorBuilder: (context, error, stackTrace) =>
+                                                    Center(
+                                                      child: Text(
+                                                        storeName!.isNotEmpty ? storeName![0].toUpperCase() : '',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: 18.sp,
+                                                        ),
+                                                      ),
+                                                    ),
+                                              ),
+                          ),
                         ),
                         // Store name
                         Flexible(

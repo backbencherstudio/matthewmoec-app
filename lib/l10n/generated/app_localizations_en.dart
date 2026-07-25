@@ -33,6 +33,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get helpOthersShopAndGiveBack => 'Help Others shop & give back';
 
   @override
+  String get search => 'Search';
+
+  @override
+  String get noStoresFound => 'No stores found';
+
+  @override
   String get navHome => 'Home';
 
   @override
