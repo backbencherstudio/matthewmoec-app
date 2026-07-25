@@ -236,6 +236,12 @@ abstract class AppLocalizations {
   /// **'As an Amazon Associate I earn from qualifying purchases.'**
   String get amazonAssociateDisclaimer;
 
+  /// No description provided for @associateDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'As a {storeName} Associate I earn from qualifying purchases.'**
+  String associateDisclaimer(String storeName);
+
   /// No description provided for @tapBelowAmazon.
   ///
   /// In en, this message translates to:

@@ -26,6 +26,14 @@
   
   "storeLinkActive": "Store Link Active",
   "amazonAssociateDisclaimer": "As an Amazon Associate I earn from qualifying purchases.",
+  "associateDisclaimer": "As a {storeName} Associate I earn from qualifying purchases.",
+  "@associateDisclaimer": {
+    "placeholders": {
+      "storeName": {
+        "type": "String"
+      }
+    }
+  },
   "tapBelowAmazon": "Tap below — Amazon opens via affiliate link. Your purchase supports charity at no extra cost to you.",
   "openStoreButton": "Open {storeName}",
   "@openStoreButton": {

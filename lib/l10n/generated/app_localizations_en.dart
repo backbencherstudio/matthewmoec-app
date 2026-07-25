@@ -82,6 +82,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'As an Amazon Associate I earn from qualifying purchases.';
 
   @override
+  String associateDisclaimer(String storeName) {
+    return 'As a $storeName Associate I earn from qualifying purchases.';
+  }
+
+  @override
   String get tapBelowAmazon =>
       'Tap below — Amazon opens via affiliate link. Your purchase supports charity at no extra cost to you.';
 

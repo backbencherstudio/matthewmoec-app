@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -70,14 +71,13 @@ class StoreDetailsScreen extends ConsumerWidget {
                   const SizedBox(height: 16),
 
                   // 2. Store Links Card
-                  _buildInfoCard(
-                    title: l10n.storeSelectionTitle,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: Container(
+                  storeAsync.when(
+                    data: (store) => _buildInfoCard(
+                      title: l10n.storeSelectionTitle,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(
                               vertical: 12,
@@ -87,22 +87,56 @@ class StoreDetailsScreen extends ConsumerWidget {
                               color: const Color(0xFFE2E4EB),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Text(
-                              l10n.storeLinkActive,
-                              style: TextStyle(
-                                color: Color(0xFF1A2E56),
-                                fontSize: 16,
-                              ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    store.link ?? '',
+                                    style: const TextStyle(
+                                      color: Color(0xFF1A2E56),
+                                      fontSize: 16,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                InkWell(
+                                  onTap: () async {
+                                    if (store.link != null) {
+                                      await Clipboard.setData(
+                                        ClipboardData(text: store.link!),
+                                      );
+                                      if (context.mounted) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              'Link copied to clipboard!',
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  },
+                                  child: const Icon(
+                                    Icons.copy,
+                                    color: Color(0xFF1A2E56),
+                                    size: 20,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          l10n.amazonAssociateDisclaimer,
-                          style: TextStyle(color: Colors.grey, fontSize: 14),
-                        ),
-                      ],
+                          const SizedBox(height: 12),
+                          Text(
+                            l10n.associateDisclaimer(store.name ?? ''),
+                            style: const TextStyle(color: Colors.grey, fontSize: 14),
+                          ),
+                        ],
+                      ),
                     ),
+                    error: (error, stackTrace) => const SizedBox.shrink(),
+                    loading: () => const SizedBox.shrink(),
                   ),
                   const SizedBox(height: 16),
 

@@ -83,6 +83,11 @@ class AppLocalizationsEs extends AppLocalizations {
       'Como asociado de Amazon, percibo ingresos por compras elegibles.';
 
   @override
+  String associateDisclaimer(String storeName) {
+    return 'Como asociado de $storeName, percibo ingresos por compras elegibles.';
+  }
+
+  @override
   String get tapBelowAmazon =>
       'Toque abajo — Amazon se abre mediante un enlace de afiliado. Su compra apoya a la caridad sin costo adicional para usted.';
 
