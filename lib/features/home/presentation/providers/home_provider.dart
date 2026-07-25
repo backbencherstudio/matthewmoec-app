@@ -112,3 +112,14 @@ final translatedStoreProvider = FutureProvider.family<StoreModel, String>((
     howItWorks: translatedHowItWorks,
   );
 });
+
+final searchQueryProvider = StateProvider<String>((ref) => '');
+
+final filteredStoresProvider = FutureProvider<List<StoreModel>>((ref) async {
+  final stores = await ref.watch(translatedStoresProvider.future);
+  final query = ref.watch(searchQueryProvider).trim().toLowerCase();
+  if (query.isEmpty) {
+    return stores;
+  }
+  return stores.where((store) => store.name!.toLowerCase().contains(query)).toList();
+});

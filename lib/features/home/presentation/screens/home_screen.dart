@@ -12,12 +12,33 @@ import 'package:matthewmoec_app/features/home/presentation/widgets/store_tile.da
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 import 'package:share_plus/share_plus.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  late final TextEditingController _searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController(text: ref.read(searchQueryProvider));
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final searchQuery = ref.watch(searchQueryProvider);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -53,14 +74,67 @@ class HomeScreen extends ConsumerWidget {
                       ],
                     ),
                     16.verticalSpace,
+                    TextFormField(
+                      controller: _searchController,
+                      onChanged: (value) {
+                        ref.read(searchQueryProvider.notifier).state = value;
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color(0xFFF2F4F7),
+                        hintText: l10n.search,
+                        prefixIcon: const Icon(Icons.search),
+                        suffixIcon: searchQuery.isNotEmpty
+                            ? IconButton(
+                                icon: const Icon(Icons.clear),
+                                onPressed: () {
+                                  _searchController.clear();
+                                  ref.read(searchQueryProvider.notifier).state = '';
+                                },
+                              )
+                            : null,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          borderSide: BorderSide.none,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          borderSide: BorderSide.none,
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    ),
+                    16.verticalSpace,
                     ref
-                        .watch(translatedStoresProvider)
+                        .watch(filteredStoresProvider)
                         .when(
                           data: (stores) {
+                            if (stores.isEmpty) {
+                              return Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 40.0),
+                                  child: Text(
+                                    l10n.noStoresFound,
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
                             return Column(
                               children: stores.map((store) {
                                 return StoreTile(
-                                  logo: store.name?[0] ?? '',
+                                  logo: store.logoUrl!,
                                   title: store.name!,
                                   subtitle: store.subTextNote!,
                                   slug: store.slug!,

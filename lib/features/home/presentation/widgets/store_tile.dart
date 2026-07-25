@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 
@@ -40,9 +41,27 @@ class StoreTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               alignment: Alignment.center,
-              child: Text(
+              child: Image.network(
                 logo,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                fit: BoxFit.contain,
+                height: 44.h,
+                width: 44.w,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return SizedBox(
+                    height: 44.h,
+                    width: 44.w,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Text(
+                    title[0].toUpperCase(),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
+                  );
+                },
               ),
             ),
             const SizedBox(width: 16),

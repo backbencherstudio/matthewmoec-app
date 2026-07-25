@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,6 +17,8 @@ class StoreDetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final storeAsync = ref.watch(translatedStoreProvider(slug));
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -24,14 +28,18 @@ class StoreDetailsScreen extends ConsumerWidget {
               backButtonText: l10n.backToStores,
               onBackButtonPressed: () => context.pop(),
               mode: AppHeaderMode.storeLogo,
-              storeLogoPath: 'assets/images/amazon.png',
-              storeName: ref
-                  .watch(getStoreDetailsProvider(slug))
-                  .when(
-                    data: (data) => data.name,
-                    error: (error, stackTrace) => '',
-                    loading: () => 'loading...',
-                  ),
+              isLogoLoading: storeAsync.isLoading,
+              isLogoError: storeAsync.hasError,
+              storeLogoPath: storeAsync.when(
+                data: (data) => data.logoUrl,
+                error: (error, stackTrace) => null,
+                loading: () => null,
+              ),
+              storeName: storeAsync.when(
+                data: (data) => data.name,
+                error: (error, stackTrace) => '',
+                loading: () => 'loading...',
+              ),
               subtitle: l10n.opensInDeviceBrowser,
             ),
             Padding(
@@ -50,13 +58,11 @@ class StoreDetailsScreen extends ConsumerWidget {
                         ),
                         children: [
                           TextSpan(
-                            text: ref
-                                .watch(getStoreDetailsProvider(slug))
-                                .when(
-                                  data: (data) => data.howItWorks,
-                                  error: (error, stackTrace) => '',
-                                  loading: () => 'loading...',
-                                ),
+                            text: storeAsync.when(
+                              data: (data) => data.howItWorks,
+                              error: (error, stackTrace) => '',
+                              loading: () => 'loading...',
+                            ),
                           ),
                         ],
                       ),
@@ -65,16 +71,13 @@ class StoreDetailsScreen extends ConsumerWidget {
                   const SizedBox(height: 16),
 
                   // 2. Store Links Card
-                  _buildInfoCard(
-                    title: l10n.storeSelectionTitle,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            
-                          },
-                          child: Container(
+                  storeAsync.when(
+                    data: (store) => _buildInfoCard(
+                      title: l10n.storeSelectionTitle,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
                             width: double.infinity,
                             padding: const EdgeInsets.symmetric(
                               vertical: 12,
@@ -84,22 +87,56 @@ class StoreDetailsScreen extends ConsumerWidget {
                               color: const Color(0xFFE2E4EB),
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            child: Text(
-                              l10n.storeLinkActive,
-                              style: TextStyle(
-                                color: Color(0xFF1A2E56),
-                                fontSize: 16,
-                              ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    store.link ?? '',
+                                    style: const TextStyle(
+                                      color: Color(0xFF1A2E56),
+                                      fontSize: 16,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                InkWell(
+                                  onTap: () async {
+                                    if (store.link != null) {
+                                      await Clipboard.setData(
+                                        ClipboardData(text: store.link!),
+                                      );
+                                      if (context.mounted) {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              'Link copied to clipboard!',
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  },
+                                  child: const Icon(
+                                    Icons.copy,
+                                    color: Color(0xFF1A2E56),
+                                    size: 20,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          l10n.amazonAssociateDisclaimer,
-                          style: TextStyle(color: Colors.grey, fontSize: 14),
-                        ),
-                      ],
+                          const SizedBox(height: 12),
+                          Text(
+                            l10n.associateDisclaimer(store.name ?? ''),
+                            style: const TextStyle(color: Colors.grey, fontSize: 14),
+                          ),
+                        ],
+                      ),
                     ),
+                    error: (error, stackTrace) => const SizedBox.shrink(),
+                    loading: () => const SizedBox.shrink(),
                   ),
                   const SizedBox(height: 16),
 
@@ -160,8 +197,9 @@ class StoreDetailsScreen extends ConsumerWidget {
 
                   // 4. Gradient Button
                   Container(
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
                     width: double.infinity,
-                    height: 100,
+                    //height: 100,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
                       gradient: const LinearGradient(
@@ -170,57 +208,45 @@ class StoreDetailsScreen extends ConsumerWidget {
                         colors: [Color(0xFF4A69BD), Color(0xFF1A2E56)],
                       ),
                     ),
-                    child: ref
-                        .watch(translatedStoreProvider(slug))
-                        .when(
-                          data: (store) => ElevatedButton(
-                            onPressed: () async {
-                              final Uri url = Uri.parse(store.link!);
-                              await launchUrl(
-                                url,
-                                mode: LaunchMode.externalApplication,
-                              );
-                              if (context.mounted) {
-                                context.goNamed(
-                                  AppRouteNames.externalBrowser,
-                                  extra: store,
-                                );
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              shadowColor: Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
+                    child: storeAsync.when(
+                      data: (store) => ElevatedButton(
+                        onPressed: () async {
+                          final Uri url = Uri.parse(store.link!);
+                          await launchUrl(
+                            url,
+                            mode: LaunchMode.externalApplication,
+                          );
+                          if (context.mounted) {
+                            context.goNamed(
+                              AppRouteNames.externalBrowser,
+                              extra: store,
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              l10n.openStoreButton(store.name!),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  l10n.openStoreButton(store.name!),
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                SizedBox(height: 4),
-                                Text(
-                                  l10n.opensInExternalBrowser,
-                                  style: TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 14,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          error: (error, stackTrace) => const SizedBox(),
-                          loading: () => const SizedBox(),
+                          ],
                         ),
+                      ),
+                      error: (error, stackTrace) => const SizedBox(),
+                      loading: () => const SizedBox(),
+                    ),
                   ),
                 ],
               ),

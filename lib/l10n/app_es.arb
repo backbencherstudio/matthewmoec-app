@@ -8,7 +8,8 @@
   "everyPurchase": "Cada compra marca la diferencia",
   "tapAStoreSupportsCharity": "Toca una Tienda. Apoya la Caridad",
   "helpOthersShopAndGiveBack": "Ayude a otros a comprar y contribuir",
-  
+  "search": "Buscar",
+  "noStoresFound": "No se encontraron tiendas",
   "navHome": "Inicio",
   "navCharity": "Caridad",
   "navShare": "Compartir",
@@ -25,6 +26,14 @@
   
   "storeLinkActive": "Enlace de tienda activo",
   "amazonAssociateDisclaimer": "Como asociado de Amazon, percibo ingresos por compras elegibles.",
+  "associateDisclaimer": "Como asociado de {storeName}, percibo ingresos por compras elegibles.",
+  "@associateDisclaimer": {
+    "placeholders": {
+      "storeName": {
+        "type": "String"
+      }
+    }
+  },
   "tapBelowAmazon": "Toque abajo — Amazon se abre mediante un enlace de afiliado. Su compra apoya a la caridad sin costo adicional para usted.",
   "openStoreButton": "Abrir {storeName}",
   "@openStoreButton": {

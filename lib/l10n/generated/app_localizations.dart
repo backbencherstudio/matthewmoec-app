@@ -146,6 +146,18 @@ abstract class AppLocalizations {
   /// **'Help Others shop & give back'**
   String get helpOthersShopAndGiveBack;
 
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @noStoresFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No stores found'**
+  String get noStoresFound;
+
   /// No description provided for @navHome.
   ///
   /// In en, this message translates to:
@@ -223,6 +235,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'As an Amazon Associate I earn from qualifying purchases.'**
   String get amazonAssociateDisclaimer;
+
+  /// No description provided for @associateDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'As a {storeName} Associate I earn from qualifying purchases.'**
+  String associateDisclaimer(String storeName);
 
   /// No description provided for @tapBelowAmazon.
   ///

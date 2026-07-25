@@ -34,6 +34,12 @@ class AppLocalizationsEs extends AppLocalizations {
       'Ayude a otros a comprar y contribuir';
 
   @override
+  String get search => 'Buscar';
+
+  @override
+  String get noStoresFound => 'No se encontraron tiendas';
+
+  @override
   String get navHome => 'Inicio';
 
   @override
@@ -75,6 +81,11 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get amazonAssociateDisclaimer =>
       'Como asociado de Amazon, percibo ingresos por compras elegibles.';
+
+  @override
+  String associateDisclaimer(String storeName) {
+    return 'Como asociado de $storeName, percibo ingresos por compras elegibles.';
+  }
 
   @override
   String get tapBelowAmazon =>

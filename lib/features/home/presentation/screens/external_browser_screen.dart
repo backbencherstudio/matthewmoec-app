@@ -24,7 +24,7 @@ class ExternalBrowserScreen extends StatelessWidget {
             backButtonText: l10n.backToStores,
             onBackButtonPressed: () => context.goNamed(AppRouteNames.home),
             mode: AppHeaderMode.storeLogo,
-            storeLogoPath: 'assets/images/amazon.png',
+            storeLogoPath: store.logoUrl,
             storeName: store.name,
             subtitle: store.link!,
           ),
