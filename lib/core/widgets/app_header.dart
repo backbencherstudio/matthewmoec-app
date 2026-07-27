@@ -14,7 +14,7 @@ class AppHeader extends ConsumerWidget {
     super.key,
     this.backButtonText,
     this.onBackButtonPressed,
-    required this.subtitle,
+    this.subtitle,
     this.bottomPadding,
     this.mode = AppHeaderMode.appLogo,
     this.storeLogoPath,
@@ -29,7 +29,7 @@ class AppHeader extends ConsumerWidget {
 
   final String? backButtonText;
   final VoidCallback? onBackButtonPressed;
-  final String subtitle;
+  final String? subtitle;
   final double? bottomPadding;
   final AppHeaderMode mode;
   final bool showLocaleToggle;
@@ -179,13 +179,14 @@ class AppHeader extends ConsumerWidget {
                                   color: AppColor.white,
                                 ),
                               ),
-                              Text(
-                                subtitle,
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: AppColor.grey,
+                              if (subtitle != null && subtitle!.isNotEmpty)
+                                Text(
+                                  subtitle!,
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: AppColor.grey,
+                                  ),
                                 ),
-                              ),
                             ],
                           ),
                         ),
@@ -199,10 +200,10 @@ class AppHeader extends ConsumerWidget {
             ),
 
             // ── Subtitle ─────────────────────────────────────────────────
-            if (mode == AppHeaderMode.appLogo) ...[
+            if (mode == AppHeaderMode.appLogo && subtitle != null && subtitle!.isNotEmpty) ...[
               8.verticalSpace,
               Text(
-                subtitle,
+                subtitle!,
                 style: TextStyle(fontSize: 16.sp, color: AppColor.grey),
               ),
             ],

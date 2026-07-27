@@ -62,6 +62,14 @@
   },
   
   "thisMonthsCharity": "This month's charity",
+  "trustSectionText": "Same prices. Same checkout. This month's donation supports {charityName}.",
+  "@trustSectionText": {
+    "placeholders": {
+      "charityName": {
+        "type": "String"
+      }
+    }
+  },
   "shareAction": "Share",
   "shareNow": "Share Now",
   "shareMessageTitle": "Share Message",

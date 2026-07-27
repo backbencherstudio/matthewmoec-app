@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
@@ -40,7 +38,6 @@ class StoreDetailsScreen extends ConsumerWidget {
                 error: (error, stackTrace) => '',
                 loading: () => 'loading...',
               ),
-              subtitle: l10n.opensInDeviceBrowser,
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
@@ -70,129 +67,28 @@ class StoreDetailsScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 16),
 
-                  // 2. Store Links Card
-                  storeAsync.when(
-                    data: (store) => _buildInfoCard(
-                      title: l10n.storeSelectionTitle,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 12,
-                              horizontal: 16,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFE2E4EB),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    store.link ?? '',
-                                    style: const TextStyle(
-                                      color: Color(0xFF1A2E56),
-                                      fontSize: 16,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                InkWell(
-                                  onTap: () async {
-                                    if (store.link != null) {
-                                      await Clipboard.setData(
-                                        ClipboardData(text: store.link!),
-                                      );
-                                      if (context.mounted) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              'Link copied to clipboard!',
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                    }
-                                  },
-                                  child: const Icon(
-                                    Icons.copy,
-                                    color: Color(0xFF1A2E56),
-                                    size: 20,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          Text(
-                            l10n.associateDisclaimer(store.name ?? ''),
-                            style: const TextStyle(color: Colors.grey, fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    ),
-                    error: (error, stackTrace) => const SizedBox.shrink(),
-                    loading: () => const SizedBox.shrink(),
-                  ),
-                  const SizedBox(height: 16),
-
-                  // 3. Charity Card
-                  _buildInfoCard(
-                    title: l10n.thisMonthsCharity,
-                    child: ref
-                        .watch(getThisMonthCharitiesProvider)
-                        .when(
-                          data: (charities) => Column(
-                            children: List.generate(
-                              charities.length,
-                              (index) => Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          charities[index]
-                                              .charityOrganizationName!,
-                                          style: TextStyle(
-                                            color: Color(0xFF1A2E56),
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 8.0,
-                                        ),
-                                        child: Icon(
-                                          Icons.circle,
-                                          size: 6,
-                                          color: Color(0xFF1A2E56),
-                                        ),
-                                      ),
-                                      Text(
-                                        "${DateFormat('MMMM').format(charities[index].date!)} ${charities[index].date?.year}",
-                                        style: TextStyle(
-                                          color: Color(0xFF1A2E56),
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  if (index < charities.length - 1) Divider(),
-                                ],
+                  // 2. Combined Trust/Charity Card
+                  ref.watch(getThisMonthCharitiesProvider).when(
+                        data: (charities) {
+                          final charityName = charities.isNotEmpty
+                              ? charities.first.charityOrganizationName ?? ''
+                              : '';
+                          return _buildInfoCard(
+                            title: l10n.thisMonthsCharity,
+                            child: Text(
+                              l10n.trustSectionText(charityName),
+                              style: const TextStyle(
+                                color: Color(0xFF1A2E56),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                height: 1.4,
                               ),
                             ),
-                          ),
-                          error: (error, stackTrace) => const SizedBox(),
-                          loading: () => const SizedBox(),
-                        ),
-                  ),
+                          );
+                        },
+                        error: (error, stackTrace) => const SizedBox.shrink(),
+                        loading: () => const SizedBox.shrink(),
+                      ),
                   const SizedBox(height: 16),
 
                   // 4. Gradient Button

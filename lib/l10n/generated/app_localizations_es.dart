@@ -116,6 +116,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get thisMonthsCharity => 'Caridad de este mes';
 
   @override
+  String trustSectionText(String charityName) {
+    return 'Mismos precios. Mismo pago. La donación de este mes apoya a $charityName.';
+  }
+
+  @override
   String get shareAction => 'Compartir';
 
   @override

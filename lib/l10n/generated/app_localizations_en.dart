@@ -115,6 +115,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get thisMonthsCharity => 'This month\'s charity';
 
   @override
+  String trustSectionText(String charityName) {
+    return 'Same prices. Same checkout. This month\'s donation supports $charityName.';
+  }
+
+  @override
   String get shareAction => 'Share';
 
   @override
