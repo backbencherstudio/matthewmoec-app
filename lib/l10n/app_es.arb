@@ -62,6 +62,14 @@
   },
   
   "thisMonthsCharity": "Caridad de este mes",
+  "trustSectionText": "Mismos precios. Mismo pago. La donación de este mes apoya a {charityName}.",
+  "@trustSectionText": {
+    "placeholders": {
+      "charityName": {
+        "type": "String"
+      }
+    }
+  },
   "shareAction": "Compartir",
   "shareNow": "Compartir ahora",
   "shareMessageTitle": "Mensaje para compartir",

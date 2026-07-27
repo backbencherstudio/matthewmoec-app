@@ -284,6 +284,12 @@ abstract class AppLocalizations {
   /// **'This month\'s charity'**
   String get thisMonthsCharity;
 
+  /// No description provided for @trustSectionText.
+  ///
+  /// In en, this message translates to:
+  /// **'Same prices. Same checkout. This month\'s donation supports {charityName}.'**
+  String trustSectionText(String charityName);
+
   /// No description provided for @shareAction.
   ///
   /// In en, this message translates to:
