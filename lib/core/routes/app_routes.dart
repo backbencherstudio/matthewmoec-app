@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matthewmoec_app/core/routes/app_route_names.dart';
 import 'package:matthewmoec_app/core/routes/app_route_paths.dart';
@@ -56,19 +57,33 @@ class AppRoutes {
                   GoRoute(
                     path: AppRoutePaths.howItWorks,
                     name: AppRouteNames.howItWorks,
-                    builder: (context, state) => const HowItWorksScreen(),
+                    pageBuilder: (context, state) => CustomTransitionPage<void>(
+                      key: state.pageKey,
+                      child: const HowItWorksScreen(),
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+                          FadeTransition(opacity: animation, child: child),
+                    ),
                   ),
                   GoRoute(
                     path: AppRoutePaths.storeDetails,
                     name: AppRouteNames.storeDetails,
-                    builder: (context, state) =>
-                        StoreDetailsScreen(slug: state.extra as String),
+                    pageBuilder: (context, state) => CustomTransitionPage<void>(
+                      key: state.pageKey,
+                      child: StoreDetailsScreen(slug: state.extra as String),
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+                          FadeTransition(opacity: animation, child: child),
+                    ),
                   ),
                   GoRoute(
                     path: AppRoutePaths.externalBrowser,
                     name: AppRouteNames.externalBrowser,
-                    builder: (context, state) => ExternalBrowserScreen(
-                      store: state.extra as StoreEntity,
+                    pageBuilder: (context, state) => CustomTransitionPage<void>(
+                      key: state.pageKey,
+                      child: ExternalBrowserScreen(
+                        store: state.extra as StoreEntity,
+                      ),
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+                          FadeTransition(opacity: animation, child: child),
                     ),
                   ),
                 ],

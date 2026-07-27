@@ -37,6 +37,7 @@ class BottomNavScreen extends StatelessWidget {
           statusBarBrightness: Brightness.dark,
         ),
         child: Scaffold(
+          backgroundColor: Colors.white,
           body: navigationShell,
           bottomNavigationBar: BottomNavigationBar(
             elevation: 0,

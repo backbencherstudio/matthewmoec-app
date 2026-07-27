@@ -31,6 +31,8 @@ class MainApp extends ConsumerWidget {
         ],
         supportedLocales: AppLocalizations.supportedLocales,
         theme: AppTheme.theme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: ThemeMode.light,
         title: "CartForGood",
         routerConfig: AppRoutes.router,
         debugShowCheckedModeBanner: false,
