@@ -133,7 +133,7 @@ class StoreDetailsScreen extends ConsumerWidget {
                               l10n.openStoreButton(store.name!),
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 22,
+                                fontSize: 22.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -171,9 +171,9 @@ class StoreDetailsScreen extends ConsumerWidget {
         children: [
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: Color(0xFF5C7BCF),
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w500,
             ),
           ),
