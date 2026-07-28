@@ -8,12 +8,29 @@ import 'package:matthewmoec_app/features/home/presentation/providers/home_provid
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class StoreDetailsScreen extends ConsumerWidget {
+class StoreDetailsScreen extends ConsumerStatefulWidget {
   final String slug;
   const StoreDetailsScreen({super.key, required this.slug});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<StoreDetailsScreen> createState() => _StoreDetailsScreenState();
+}
+
+class _StoreDetailsScreenState extends ConsumerState<StoreDetailsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      if (mounted) {
+        ref.invalidate(getStoreDetailsProvider(widget.slug));
+        ref.invalidate(getThisMonthCharitiesProvider);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final slug = widget.slug;
     final l10n = AppLocalizations.of(context)!;
     final storeAsync = ref.watch(translatedStoreProvider(slug));
 
@@ -68,11 +85,14 @@ class StoreDetailsScreen extends ConsumerWidget {
                   const SizedBox(height: 16),
 
                   // 2. Combined Trust/Charity Card
-                  ref.watch(getThisMonthCharitiesProvider).when(
+                  ref
+                      .watch(getThisMonthCharitiesProvider)
+                      .when(
                         data: (charities) {
                           final charityName = charities.isNotEmpty
-                              ? charities.first.charityOrganizationName ?? ''
-                              : '';
+                              ? charities.first.charityOrganizationName ??
+                                    'Coming Soon'
+                              : 'Coming Soon';
                           return _buildInfoCard(
                             title: l10n.thisMonthsCharity,
                             child: Text(
@@ -93,7 +113,7 @@ class StoreDetailsScreen extends ConsumerWidget {
 
                   // 4. Gradient Button
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                    padding: EdgeInsets.symmetric(vertical: 6.h),
                     width: double.infinity,
                     //height: 100,
                     decoration: BoxDecoration(
