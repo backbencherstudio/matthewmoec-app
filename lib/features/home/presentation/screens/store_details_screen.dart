@@ -89,14 +89,31 @@ class _StoreDetailsScreenState extends ConsumerState<StoreDetailsScreen> {
                       .watch(getThisMonthCharitiesProvider)
                       .when(
                         data: (charities) {
-                          final charityName = charities.isNotEmpty
-                              ? charities.first.charityOrganizationName ??
-                                    'Coming Soon'
-                              : 'Coming Soon';
+                          final charityNames = charities
+                              .map((c) => c.charityOrganizationName)
+                              .whereType<String>()
+                              .where((name) => name.trim().isNotEmpty)
+                              .toList();
+
+                          final String displayCharityName;
+                          if (charityNames.isEmpty) {
+                            displayCharityName = 'Coming Soon';
+                          } else if (charityNames.length == 1) {
+                            displayCharityName = charityNames.first;
+                          } else if (charityNames.length == 2) {
+                            displayCharityName =
+                                '${charityNames[0]} and ${charityNames[1]}';
+                          } else {
+                            final allButLast = charityNames
+                                .sublist(0, charityNames.length - 1)
+                                .join(', ');
+                            displayCharityName =
+                                '$allButLast, and ${charityNames.last}';
+                          }
                           return _buildInfoCard(
                             title: l10n.thisMonthsCharity,
                             child: Text(
-                              l10n.trustSectionText(charityName),
+                              l10n.trustSectionText(displayCharityName),
                               style: const TextStyle(
                                 color: Color(0xFF1A2E56),
                                 fontSize: 18,
