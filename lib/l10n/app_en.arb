@@ -89,5 +89,7 @@
   "consentTerms": "Terms & Conditions",
   "consentSupport": "Support & FAQ",
   "consentAgreement": "I have read and agree to the Privacy Policy and Terms & Conditions.",
-  "consentNext": "Next"
+  "consentNext": "Next",
+  "noInternetConnection": "No internet connection",
+  "checkInternetMessage": "Please check your network and try again."
 }

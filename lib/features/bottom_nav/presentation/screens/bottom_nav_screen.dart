@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:matthewmoec_app/core/widgets/connectivity_bottom_banner.dart';
 import 'package:matthewmoec_app/core/widgets/double_tap_to_exit.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 
@@ -39,14 +40,20 @@ class BottomNavScreen extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.white,
           body: navigationShell,
-          bottomNavigationBar: BottomNavigationBar(
-            elevation: 0,
-            currentIndex: navigationShell.currentIndex,
-            onTap: (index) => navigationShell.goBranch(
-              index,
-              initialLocation: index == navigationShell.currentIndex,
-            ),
-            items: destinations,
+          bottomNavigationBar: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const OfflineBottomBar(),
+              BottomNavigationBar(
+                elevation: 0,
+                currentIndex: navigationShell.currentIndex,
+                onTap: (index) => navigationShell.goBranch(
+                  index,
+                  initialLocation: index == navigationShell.currentIndex,
+                ),
+                items: destinations,
+              ),
+            ],
           ),
         ),
       ),
