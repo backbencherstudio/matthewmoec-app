@@ -9,6 +9,7 @@ import 'package:matthewmoec_app/core/widgets/app_header.dart';
 import 'package:matthewmoec_app/features/app_config/presentation/providers/app_provider.dart';
 import 'package:matthewmoec_app/features/home/presentation/providers/home_provider.dart';
 import 'package:matthewmoec_app/features/home/presentation/widgets/store_tile.dart';
+import 'package:matthewmoec_app/features/home/presentation/widgets/store_tile_shimmer.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -161,46 +162,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 }).toList(),
                               );
                             },
-                            loading: () {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            },
-                            error: (error, stackTrace) {
-                              return Center(child: Text(error.toString()));
-                            },
+                            loading: () => const StoreTileShimmer(),
+                            error: (error, stackTrace) => const StoreTileShimmer(),
                           ),
-
-                      // StoreTile(
-                      //   logo: 'A', // Replace with Image.network or Asset
-                      //   title: 'Amazon',
-                      //   subtitle: l10n.amazonSubtext,
-                      // ),
-                      // StoreTile(
-                      //   title: 'Walmart',
-                      //   subtitle: l10n.electronicsAndMore,
-                      //   logo: 'W',
-                      // ),
-                      // StoreTile(
-                      //   title: 'Home Depot',
-                      //   subtitle: l10n.homeAndFashion,
-                      //   logo: 'H',
-                      // ),
-                      // StoreTile(
-                      //   title: 'Etsy',
-                      //   subtitle: l10n.homeAndFashion,
-                      //   logo: 'E',
-                      // ),
-                      // StoreTile(
-                      //   title: 'Target',
-                      //   subtitle: l10n.homeAndFashion,
-                      //   logo: 'T',
-                      // ),
-                      // StoreTile(
-                      //   title: 'Chewy',
-                      //   subtitle: l10n.homeAndFashion,
-                      //   logo: 'C',
-                      // ),
                       const SizedBox(height: 24),
 
                       // Footer Donation Card
@@ -218,9 +182,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   .when(
                                     data: (appConfig) =>
                                         appConfig.messageHomePage ?? '',
-                                    loading: () => 'Loading...',
+                                    loading: () => '...',
                                     error: (error, stackTrace) =>
-                                        error.toString(),
+                                        l10n.everyPurchase,
                                   ),
                               style: TextStyle(
                                 color: Colors.grey,

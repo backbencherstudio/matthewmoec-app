@@ -86,5 +86,7 @@
   "consentTerms": "Términos y condiciones",
   "consentSupport": "Soporte y preguntas frecuentes",
   "consentAgreement": "He leído y acepto la Política de Privacidad y los Términos y Condiciones.",
-  "consentNext": "Siguiente"
+  "consentNext": "Siguiente",
+  "noInternetConnection": "Sin conexión a internet",
+  "checkInternetMessage": "Por favor verifique su red e intente nuevamente."
 }
