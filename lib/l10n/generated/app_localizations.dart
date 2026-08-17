@@ -397,6 +397,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next'**
   String get consentNext;
+
+  /// No description provided for @noInternetConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection'**
+  String get noInternetConnection;
+
+  /// No description provided for @checkInternetMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check your network and try again.'**
+  String get checkInternetMessage;
 }
 
 class _AppLocalizationsDelegate
