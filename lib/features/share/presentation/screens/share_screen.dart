@@ -28,7 +28,7 @@ class ShareScreen extends ConsumerWidget {
                 return AppHeader(
                   bottomPadding: 40.h,
                   subtitle: l10n.helpOthersShopAndGiveBack,
-                  backButtonText: l10n.backToCharity,
+                  backButtonText: l10n.backToCauses,
                   onBackButtonPressed: () {
                     context.goNamed(AppRouteNames.charity);
                   },

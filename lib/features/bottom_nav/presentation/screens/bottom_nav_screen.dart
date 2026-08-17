@@ -21,7 +21,7 @@ class BottomNavScreen extends StatelessWidget {
       BottomNavigationBarItem(
         icon: Image.asset("assets/icons/charity.png"),
         activeIcon: Image.asset("assets/icons/charity_filled.png"),
-        label: l10n.navCharity,
+        label: l10n.navCauses,
       ),
       BottomNavigationBarItem(
         icon: Image.asset("assets/icons/share.png"),

@@ -3,19 +3,21 @@
   "appName": "CartForGood",
   "tagline": "Shop Smart. Save More. Give Back.",
   "backToStores": "Back to stores",
-  "backToCharity": "Back to charity",
+  "backToCauses": "Back to Causes",
   "helpOthers": "Help Others shop & give back",
   "everyPurchase": "Every purchase makes a difference",
   "tapAStoreSupportsCharity": "Tap a Store. Supports Charity",
+  "shopNormallyHelpOthers": "Shop normally. Help others.",
   "helpOthersShopAndGiveBack": "Help Others shop & give back",
   "search": "Search",
   "noStoresFound": "No stores found",
   "navHome": "Home",
   "navCharity": "Charity",
+  "navCauses": "Causes",
   "navShare": "Share",
 
   "howItWorksTitle": "How It works",
-  "howItWorksDescription": "The stores pay us a small commission when you shop through our links. You pay nothing extra. We share what they give us with charity every month.",
+  "howItWorksDescription": "The stores pay us a small commission when you shop through our links and complete your purchase online. You pay nothing extra. We share a portion with selected local organizations every month.",
   
   "storeSelectionTitle": "Shop at these Stores",
   "amazonSubtext": "Order online. Pick up in store. Commission still counts.",
@@ -46,6 +48,7 @@
 
   "lastMonthDonationTitle": "Last month CartForGood donated",
   "lastMonthConfirmedDonation": "Last month confirmed donation",
+  "lastMonthShared": "Last month shared",
   "lastMonthDonationHome": "Last month CartForGood donated ${amount} to Feeding America and ${amount2} to Springfield Food Pantry.",
   "@lastMonthDonationHome": {
     "placeholders": {
@@ -62,7 +65,8 @@
   },
   
   "thisMonthsCharity": "This month's charity",
-  "trustSectionText": "Same prices. Same checkout. This month's donation supports {charityName}.",
+  "thisMonthsCause": "This month's cause",
+  "trustSectionText": "Same prices. Same checkout. Purchase must be completed online. This month's support goes to {charityName}.",
   "@trustSectionText": {
     "placeholders": {
       "charityName": {

@@ -45,7 +45,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          AppHeader(subtitle: l10n.tapAStoreSupportsCharity),
+          AppHeader(subtitle: l10n.shopNormallyHelpOthers),
           Expanded(
             child: RefreshIndicator(
               color: const Color(0xFF2B468F),

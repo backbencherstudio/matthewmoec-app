@@ -18,7 +18,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backToStores => 'Back to stores';
 
   @override
-  String get backToCharity => 'Back to charity';
+  String get backToCauses => 'Back to Causes';
 
   @override
   String get helpOthers => 'Help Others shop & give back';
@@ -28,6 +28,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tapAStoreSupportsCharity => 'Tap a Store. Supports Charity';
+
+  @override
+  String get shopNormallyHelpOthers => 'Shop normally. Help others.';
 
   @override
   String get helpOthersShopAndGiveBack => 'Help Others shop & give back';
@@ -45,6 +48,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navCharity => 'Charity';
 
   @override
+  String get navCauses => 'Causes';
+
+  @override
   String get navShare => 'Share';
 
   @override
@@ -52,7 +58,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get howItWorksDescription =>
-      'The stores pay us a small commission when you shop through our links. You pay nothing extra. We share what they give us with charity every month.';
+      'The stores pay us a small commission when you shop through our links and complete your purchase online. You pay nothing extra. We share a portion with selected local organizations every month.';
 
   @override
   String get storeSelectionTitle => 'Shop at these Stores';
@@ -102,6 +108,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lastMonthConfirmedDonation => 'Last month confirmed donation';
 
   @override
+  String get lastMonthShared => 'Last month shared';
+
+  @override
   String lastMonthDonationHome(String amount, String amount2) {
     return 'Last month CartForGood donated \$$amount to Feeding America and \$$amount2 to Springfield Food Pantry.';
   }
@@ -115,8 +124,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get thisMonthsCharity => 'This month\'s charity';
 
   @override
+  String get thisMonthsCause => 'This month\'s cause';
+
+  @override
   String trustSectionText(String charityName) {
-    return 'Same prices. Same checkout. This month\'s donation supports $charityName.';
+    return 'Same prices. Same checkout. Purchase must be completed online. This month\'s support goes to $charityName.';
   }
 
   @override

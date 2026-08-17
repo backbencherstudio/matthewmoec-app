@@ -3,7 +3,7 @@
   "appName": "CartForGood",
   "tagline": "Compre inteligentemente. Ahorre más. Contribuya.",
   "backToStores": "Volver a tiendas",
-  "backToCharity": "Volver a caridad",
+  "backToCauses": "Volver a las causas",
   "helpOthers": "Ayude a otros a comprar y contribuir",
   "everyPurchase": "Cada compra marca la diferencia",
   "tapAStoreSupportsCharity": "Toca una Tienda. Apoya la Caridad",
@@ -15,7 +15,7 @@
   "navShare": "Compartir",
 
   "howItWorksTitle": "Cómo funciona",
-  "howItWorksDescription": "Las tiendas nos pagan una pequeña comisión cuando compras a través de nuestros enlaces. No pagas nada extra. Compartimos lo que nos dan con instituciones benéficas cada mes.",
+  "howItWorksDescription": "Las tiendas nos pagan una pequeña comisión cuando compras a través de nuestros enlaces y completas tu compra en línea. No pagas nada extra. Compartimos una parte con organizaciones locales seleccionadas cada mes.",
   
   "storeSelectionTitle": "Compre en estas tiendas",
   "amazonSubtext": "Pida en línea. Recoja en tienda. La comisión sigue contando.",
@@ -46,6 +46,7 @@
 
   "lastMonthDonationTitle": "El mes pasado CartForGood donó",
   "lastMonthConfirmedDonation": "Donación confirmada del mes pasado",
+  "lastMonthShared": "El mes pasado se compartió",
   "lastMonthDonationHome": "El mes pasado CartForGood donó ${amount} a Feeding America y ${amount2} a Springfield Food Pantry.",
   "@lastMonthDonationHome": {
     "placeholders": {

@@ -60,7 +60,9 @@ class CharityScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(24),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: Colors.black.withValues(alpha: 0.05),
+                                      color: Colors.black.withValues(
+                                        alpha: 0.05,
+                                      ),
                                       blurRadius: 20,
                                       offset: const Offset(0, 10),
                                     ),
@@ -72,7 +74,7 @@ class CharityScreen extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     Text(
-                                      l10n.lastMonthConfirmedDonation,
+                                      l10n.lastMonthShared,
                                       style: TextStyle(
                                         fontSize: 18,
                                         color: Color(0xFF4A68B1),
