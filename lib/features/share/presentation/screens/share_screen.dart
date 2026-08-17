@@ -10,6 +10,7 @@ import 'package:matthewmoec_app/core/widgets/app_header.dart';
 import 'package:matthewmoec_app/features/app_config/presentation/providers/app_provider.dart';
 import 'package:matthewmoec_app/l10n/generated/app_localizations.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ShareScreen extends ConsumerWidget {
@@ -39,8 +40,8 @@ class ShareScreen extends ConsumerWidget {
               offset: const Offset(0, -40),
               child: Consumer(
                 builder: (context, ref, child) {
-                  final appConfigAsync = ref.read(getAppConfigProvider);
-                  final appConfig = appConfigAsync.value;
+                  final appConfigAsync = ref.watch(getAppConfigProvider);
+                  final appConfig = appConfigAsync.valueOrNull;
                   final String? url = Platform.isAndroid
                       ? appConfig?.androidPlayStoreUrl
                       : appConfig?.iosAppStoreUrl;
@@ -76,20 +77,84 @@ class ShareScreen extends ConsumerWidget {
                                 ),
                               ),
                               const SizedBox(height: 12),
-                              Text(
-                                ref
-                                    .watch(translatedAppConfigProvider)
-                                    .when(
-                                      data: (appConfig) =>
-                                          appConfig.shareMessage ?? '',
-                                      loading: () => 'Loading...',
-                                      error: (error, stackTrace) =>
-                                          error.toString(),
-                                    ),
-                                style: TextStyle(
-                                  color: Colors.grey[700],
-                                  fontSize: 15,
-                                  height: 1.4,
+                              ref.watch(translatedAppConfigProvider).when(
+                                data: (appConfig) => Text(
+                                  appConfig.shareMessage ?? '',
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 15,
+                                    height: 1.4,
+                                  ),
+                                ),
+                                loading: () => Shimmer.fromColors(
+                                  baseColor: const Color(0xFFE8ECEF),
+                                  highlightColor: const Color(0xFFF7F9FA),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 14.h,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Container(
+                                        height: 14.h,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Container(
+                                        height: 14.h,
+                                        width: 200.w,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                error: (error, stackTrace) => Shimmer.fromColors(
+                                  baseColor: const Color(0xFFE8ECEF),
+                                  highlightColor: const Color(0xFFF7F9FA),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 14.h,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Container(
+                                        height: 14.h,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 6),
+                                      Container(
+                                        height: 14.h,
+                                        width: 200.w,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 8),
