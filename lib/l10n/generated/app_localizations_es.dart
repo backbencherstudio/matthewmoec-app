@@ -18,7 +18,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get backToStores => 'Volver a tiendas';
 
   @override
-  String get backToCharity => 'Volver a caridad';
+  String get backToCauses => 'Volver a las causas';
 
   @override
   String get helpOthers => 'Ayude a otros a comprar y contribuir';
@@ -28,6 +28,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get tapAStoreSupportsCharity => 'Toca una Tienda. Apoya la Caridad';
+
+  @override
+  String get shopNormallyHelpOthers => 'Shop normally. Help others.';
 
   @override
   String get helpOthersShopAndGiveBack =>
@@ -46,6 +49,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get navCharity => 'Caridad';
 
   @override
+  String get navCauses => 'Causes';
+
+  @override
   String get navShare => 'Compartir';
 
   @override
@@ -53,7 +59,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get howItWorksDescription =>
-      'Las tiendas nos pagan una pequeña comisión cuando compras a través de nuestros enlaces. No pagas nada extra. Compartimos lo que nos dan con instituciones benéficas cada mes.';
+      'Las tiendas nos pagan una pequeña comisión cuando compras a través de nuestros enlaces y completas tu compra en línea. No pagas nada extra. Compartimos una parte con organizaciones locales seleccionadas cada mes.';
 
   @override
   String get storeSelectionTitle => 'Compre en estas tiendas';
@@ -103,6 +109,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get lastMonthConfirmedDonation => 'Donación confirmada del mes pasado';
 
   @override
+  String get lastMonthShared => 'El mes pasado se compartió';
+
+  @override
   String lastMonthDonationHome(String amount, String amount2) {
     return 'El mes pasado CartForGood donó \$$amount a Feeding America y \$$amount2 a Springfield Food Pantry.';
   }
@@ -114,6 +123,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get thisMonthsCharity => 'Caridad de este mes';
+
+  @override
+  String get thisMonthsCause => 'This month\'s cause';
 
   @override
   String trustSectionText(String charityName) {

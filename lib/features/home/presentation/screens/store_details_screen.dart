@@ -111,7 +111,7 @@ class _StoreDetailsScreenState extends ConsumerState<StoreDetailsScreen> {
                                 '$allButLast, and ${charityNames.last}';
                           }
                           return _buildInfoCard(
-                            title: l10n.thisMonthsCharity,
+                            title: l10n.thisMonthsCause,
                             child: Text(
                               l10n.trustSectionText(displayCharityName),
                               style: const TextStyle(

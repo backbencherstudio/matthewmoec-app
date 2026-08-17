@@ -116,11 +116,11 @@ abstract class AppLocalizations {
   /// **'Back to stores'**
   String get backToStores;
 
-  /// No description provided for @backToCharity.
+  /// No description provided for @backToCauses.
   ///
   /// In en, this message translates to:
-  /// **'Back to charity'**
-  String get backToCharity;
+  /// **'Back to Causes'**
+  String get backToCauses;
 
   /// No description provided for @helpOthers.
   ///
@@ -139,6 +139,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap a Store. Supports Charity'**
   String get tapAStoreSupportsCharity;
+
+  /// No description provided for @shopNormallyHelpOthers.
+  ///
+  /// In en, this message translates to:
+  /// **'Shop normally. Help others.'**
+  String get shopNormallyHelpOthers;
 
   /// No description provided for @helpOthersShopAndGiveBack.
   ///
@@ -170,6 +176,12 @@ abstract class AppLocalizations {
   /// **'Charity'**
   String get navCharity;
 
+  /// No description provided for @navCauses.
+  ///
+  /// In en, this message translates to:
+  /// **'Causes'**
+  String get navCauses;
+
   /// No description provided for @navShare.
   ///
   /// In en, this message translates to:
@@ -185,7 +197,7 @@ abstract class AppLocalizations {
   /// No description provided for @howItWorksDescription.
   ///
   /// In en, this message translates to:
-  /// **'The stores pay us a small commission when you shop through our links. You pay nothing extra. We share what they give us with charity every month.'**
+  /// **'The stores pay us a small commission when you shop through our links and complete your purchase online. You pay nothing extra. We share a portion with selected local organizations every month.'**
   String get howItWorksDescription;
 
   /// No description provided for @storeSelectionTitle.
@@ -266,6 +278,12 @@ abstract class AppLocalizations {
   /// **'Last month confirmed donation'**
   String get lastMonthConfirmedDonation;
 
+  /// No description provided for @lastMonthShared.
+  ///
+  /// In en, this message translates to:
+  /// **'Last month shared'**
+  String get lastMonthShared;
+
   /// No description provided for @lastMonthDonationHome.
   ///
   /// In en, this message translates to:
@@ -284,10 +302,16 @@ abstract class AppLocalizations {
   /// **'This month\'s charity'**
   String get thisMonthsCharity;
 
+  /// No description provided for @thisMonthsCause.
+  ///
+  /// In en, this message translates to:
+  /// **'This month\'s cause'**
+  String get thisMonthsCause;
+
   /// No description provided for @trustSectionText.
   ///
   /// In en, this message translates to:
-  /// **'Same prices. Same checkout. This month\'s donation supports {charityName}.'**
+  /// **'Same prices. Same checkout. Purchase must be completed online. This month\'s support goes to {charityName}.'**
   String trustSectionText(String charityName);
 
   /// No description provided for @shareAction.

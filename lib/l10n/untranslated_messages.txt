@@ -1,1 +1,7 @@
-{}
+{
+  "es": [
+    "shopNormallyHelpOthers",
+    "navCauses",
+    "thisMonthsCause"
+  ]
+}

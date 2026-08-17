@@ -18,7 +18,7 @@ class HowItWorksScreen extends StatelessWidget {
             subtitle: l10n.helpOthersShopAndGiveBack,
           ),
           Container(
-            width: 350, // Adjust width as needed
+            //width: 350, // Adjust width as needed
             padding: const EdgeInsets.all(20.0),
             margin: EdgeInsets.all(20),
             decoration: BoxDecoration(
