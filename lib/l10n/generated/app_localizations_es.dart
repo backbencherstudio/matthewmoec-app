@@ -175,4 +175,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get consentNext => 'Siguiente';
+
+  @override
+  String get noInternetConnection => 'Sin conexión a internet';
+
+  @override
+  String get checkInternetMessage =>
+      'Por favor verifique su red e intente nuevamente.';
 }
